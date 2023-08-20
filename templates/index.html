@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h2 id="question">{{ quiz.question }}</h2>
+    <ul>
+        <li id="option1">{{ quiz.options[0] }}</li>
+        <li id="option2">{{ quiz.options[1] }}</li>
+        <li id="option3">{{ quiz.options[2] }}</li>
+        <li id="option4">{{ quiz.options[3] }}</li>
+    </ul>
+    <p id="correct_option">Correct Option: {{ quiz.correct_option }}</p>
+</div>
+
+</body>
+</html>
