@@ -18,12 +18,14 @@ body {
 button {
     background-color: #007BFF;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
-    width: 50%;
+    display: block;
+    margin: 20px auto;  /* Center the button horizontally and give it some space above and below */
+    font-size: 14px;    /* Adjust as per your preference */
 }
 
 button:hover {
