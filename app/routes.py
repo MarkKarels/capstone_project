@@ -57,16 +57,17 @@ def generate_question():
         call_count += 1
         bears_fact = chatgpt_conversation(
             f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
-            f"{chosen_sub_topic} with four options and the correct answer. Keep the questions below 255 characters and"
-            f"the answers should be no more than 7 words. Also, try to give realistic options that make sense,"
-            f"for example if it asks about a player at a specific position, only list players who played that position"
-            f" while leaving out opinion/subjective question and answers, sticking to hard facts.")
+            f"{chosen_sub_topic}. Ensure that the question is below 255 characters and each answer is no more than "
+            f"7 words. The options provided should be contextually relevant to the question; for example, if asking "
+            f"about a defensive record like interceptions, only list players known for playing in defensive positions. "
+            f"Avoid opinion/subjective questions and answers, and stick strictly to factual information. Provide four "
+            f"options and the correct answer.")
         question_details = bears_fact.split('\n')
-
+        print(question_details)
         unwanted_strings = {
             '',
             'Correct Answer:',
-            'Correct Answer: '
+            'Correct Answer: ',
             'Answer:',
             'Options:',
             'Options: ',
@@ -106,11 +107,23 @@ def generate_question():
                 print('None Escape')
                 continue
 
-            existing_questions_for_team = Question.query.filter_by(team=team).with_entities(Question.question).all()
-            is_similar = any(bert_similarity(question, q[0]) > 0.98 for q in existing_questions_for_team)
+            # Fetch both question and answer attributes
+            existing_questions_for_team = Question.query.filter_by(team=team).with_entities(Question.question,
+                                                                                            Question.answer).all()
 
-            if is_similar:
-                print('Question relates to another question in the db')
+            is_similar = False
+
+            for q_text, q_answer in existing_questions_for_team:
+                # Check for similarity
+                if bert_similarity(question, q_text) > 0.925:
+                    # If questions are similar, check if answers are also the same
+                    if correct_option == q_answer:
+                        is_similar = True
+                        print('Question relates to another question in the db with the same answer.')
+                        break
+                    else:
+                        # If answers are different, we can continue looking or decide on other logic
+                        continue
 
             if not is_similar:
                 db_store(question, options, correct_option, team)
@@ -135,7 +148,7 @@ def generate_question_topic():
     difficulty = "medium"
     sub_topics = ["Team History", "Legendary Players", "Championship Seasons", "Coaches and Management",
                   "Stadium and Fan Culture",
-                  "Rivalries", "Record Breaking Performances", "Draft Picks", "Off-the-field Moments",
+                  "Rivalries", "Record Breaking Performances", "Draft Picks", "Current Charity Organizations",
                   "Individual player awards",
                   "Tactics and Play-style", "Founding Facts", "Previous Team Names", "Legendary Teams", "Stadium Facts"]
     chosen_sub_topic = random.choice(sub_topics)
