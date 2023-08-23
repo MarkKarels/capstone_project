@@ -1,9 +1,11 @@
+import random
+
 import openai
 import spacy
-from flask import render_template
+from flask import render_template, jsonify
+
 from app import app
 from app.model import *
-import random
 
 app.config.from_object('config')
 openai.api_key = app.config['OPENAI_API_KEY']
@@ -15,16 +17,18 @@ call_count = 0
 
 @app.route('/')
 def quiz():
-    team = "Chicago Bears"
-    difficulty = "medium"
-    sub_topics = ["Team History", "Legendary Players", "Championship Seasons", "Coaches and Management", "Stadium and Fan Culture",
-                  "Rivalries", "Record Breaking Performances", "Draft Picks", "Off-the-field Moments", "Individual player awards",
-                  "Tactics and Play-style", "Founding Facts", "Previous Team Names"]
-    chosen_sub_topic = random.choice(sub_topics)
-    question, options, correct_option = generate_question(team, difficulty, chosen_sub_topic)
+    return render_template('index.html')
 
-    return render_template('index.html',
-                           quiz={"question": question, "options": options, "correct_option": correct_option})
+
+@app.route('/generate_question', methods=['POST'])
+def generate_question_route():
+    question, options, correct_option = generate_question()
+
+    return jsonify({
+        "question": question,
+        "options": options,
+        "correct_option": correct_option
+    })
 
 
 def chatgpt_conversation(prompt):
@@ -37,7 +41,7 @@ def chatgpt_conversation(prompt):
     return response["choices"][0]["message"]["content"]
 
 
-def generate_question(team, difficulty, chosen_sub_topic):
+def generate_question():
     global call_count
     global MAX_CALL
 
@@ -46,6 +50,8 @@ def generate_question(team, difficulty, chosen_sub_topic):
             print("Reached Max Call Count: Cannot Generate New Question")
             return None, None, None
 
+        team, difficulty, chosen_sub_topic = generate_question_topic()
+        print(chosen_sub_topic)
         call_count += 1
         bears_fact = chatgpt_conversation(
             f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
@@ -72,8 +78,8 @@ def generate_question(team, difficulty, chosen_sub_topic):
                 continue
 
             new_question_check = nlp(question)
-            existing_questions = Question.query.with_entities(Question.question).all()
-            is_similar = any(new_question_check.similarity(nlp(q[0])) > 0.9 for q in existing_questions)
+            existing_questions_for_team = Question.query.filter_by(team=team).with_entities(Question.question).all()
+            is_similar = any(new_question_check.similarity(nlp(q[0])) > 0.9 for q in existing_questions_for_team)
 
             if not is_similar:
                 db_store(question, options, correct_option, team)
@@ -90,3 +96,16 @@ def db_store(question, options, correct_option, team):
                    answer=correct_option, team=team)
     db.session.add(row)
     db.session.commit()
+
+
+def generate_question_topic():
+    team = "Kansas City Chiefs"
+    difficulty = "medium"
+    sub_topics = ["Team History", "Legendary Players", "Championship Seasons", "Coaches and Management",
+                  "Stadium and Fan Culture",
+                  "Rivalries", "Record Breaking Performances", "Draft Picks", "Off-the-field Moments",
+                  "Individual player awards",
+                  "Tactics and Play-style", "Founding Facts", "Previous Team Names", "Legendary Teams", "Stadium Facts"]
+    chosen_sub_topic = random.choice(sub_topics)
+
+    return team, difficulty, chosen_sub_topic

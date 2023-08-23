@@ -51,3 +51,4 @@ wasabi==1.1.2
 Werkzeug==2.3.7
 yarl==1.9.2
 zope.interface==6.0
+jsonify~=0.5

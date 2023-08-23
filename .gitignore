@@ -81,6 +81,8 @@ venv/
 *.venv
 venv.bak/
 *.venv.bak/
+
+# Database
 .db
 
 # Spyder project settings
