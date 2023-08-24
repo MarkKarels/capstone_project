@@ -2,7 +2,7 @@ import random
 import torch
 import openai
 
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from app import app
@@ -12,7 +12,7 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased').eval()
 app.config.from_object('config')
 openai.api_key = app.config['OPENAI_API_KEY']
-MODEL_ID = 'gpt-4'
+MODEL_ID = 'gpt-3.5-turbo'
 MAX_CALL = 100
 call_count = 0
 
@@ -24,7 +24,9 @@ def quiz():
 
 @app.route('/generate_question', methods=['POST'])
 def generate_question_route():
-    question, options, correct_option = generate_question()
+    data = request.get_json()
+    selected_team = data.get("team", "Chicago Bears")  # Default to Chicago Bears if no team is provided
+    question, options, correct_option = generate_question(selected_team)
 
     return jsonify({
         "question": question,
@@ -43,7 +45,7 @@ def chatgpt_conversation(prompt):
     return response["choices"][0]["message"]["content"]
 
 
-def generate_question():
+def generate_question(team):
     global call_count
     global MAX_CALL
 
@@ -52,7 +54,7 @@ def generate_question():
             print("Reached Max Call Count: Cannot Generate New Question")
             return None, None, None
 
-        team, difficulty, chosen_sub_topic = generate_question_topic()
+        difficulty, chosen_sub_topic = generate_question_topic()
         print(chosen_sub_topic)
         call_count += 1
         bears_fact = chatgpt_conversation(
@@ -84,23 +86,25 @@ def generate_question():
             continue
 
         try:
-            if MODEL_ID == 'gpt-4':
+            if ':' in question_details[0]:
                 question = question_details[0].split(':')[1].strip()
-                print(question)
-                options = [option.split(')')[1].strip() if ')' in option else option.split('.')[1].strip() if '.' in
-                           option else None for option in question_details[1:5]]
-                print(options)
-                if ')' in question_details[5]:
-                    correct_option = question_details[5].split(')')[1].strip()
-                elif '.' in question_details[5]:
-                    correct_option = question_details[5].split('.')[1].strip()
-                else:
-                    correct_option = question_details[5]
-                print(correct_option)
             else:
                 question = question_details[0]
-                options = [option.split(')')[1].strip() if ')' in option else None for option in question_details[1:5]]
+            print(question)
+            options = [
+                option.split(')')[1].strip() if ')' in option else
+                option.split('.')[1].strip() if '.' in option else
+                option
+                for option in question_details[1:5]
+            ]
+            print(options)
+            if ')' in question_details[5]:
                 correct_option = question_details[5].split(')')[1].strip()
+            elif '.' in question_details[5]:
+                correct_option = question_details[5].split('.')[1].strip()
+            else:
+                correct_option = question_details[5]
+            print(correct_option)
 
             # Return None if any of the options couldn't be parsed correctly
             if None in options:
@@ -115,7 +119,7 @@ def generate_question():
 
             for q_text, q_answer in existing_questions_for_team:
                 # Check for similarity
-                if bert_similarity(question, q_text) > 0.925:
+                if bert_similarity(question, q_text) > 0.90:
                     # If questions are similar, check if answers are also the same
                     if correct_option == q_answer:
                         is_similar = True
@@ -144,16 +148,14 @@ def db_store(question, options, correct_option, team):
 
 
 def generate_question_topic():
-    team = "Chicago Bears"
     difficulty = "medium"
     sub_topics = ["Team History", "Legendary Players", "Championship Seasons", "Coaches and Management",
-                  "Stadium and Fan Culture",
-                  "Rivalries", "Record Breaking Performances", "Draft Picks", "Current Charity Organizations",
-                  "Individual player awards",
-                  "Tactics and Play-style", "Founding Facts", "Previous Team Names", "Legendary Teams", "Stadium Facts"]
+                  "Stadium and Fan Culture", "Rivalries", "Record Breaking Performances", "Draft Picks",
+                  "Current Charity Organizations", "Individual player awards", "Tactics and Play-style",
+                  "Founding Facts", "Previous Team Names", "Legendary Teams", "Stadium Facts"]
     chosen_sub_topic = random.choice(sub_topics)
 
-    return team, difficulty, chosen_sub_topic
+    return difficulty, chosen_sub_topic
 
 
 def get_bert_embedding(sentence):
