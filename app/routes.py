@@ -2,7 +2,7 @@ import random
 import torch
 import openai
 
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from app import app
@@ -24,7 +24,9 @@ def quiz():
 
 @app.route('/generate_question', methods=['POST'])
 def generate_question_route():
-    question, options, correct_option = generate_question()
+    data = request.get_json()
+    selected_team = data.get("team", "Chicago Bears")  # Default to Chicago Bears if no team is provided
+    question, options, correct_option = generate_question(selected_team)
 
     return jsonify({
         "question": question,
@@ -43,7 +45,7 @@ def chatgpt_conversation(prompt):
     return response["choices"][0]["message"]["content"]
 
 
-def generate_question():
+def generate_question(team):
     global call_count
     global MAX_CALL
 
@@ -52,7 +54,7 @@ def generate_question():
             print("Reached Max Call Count: Cannot Generate New Question")
             return None, None, None
 
-        team, difficulty, chosen_sub_topic = generate_question_topic()
+        difficulty, chosen_sub_topic = generate_question_topic()
         print(chosen_sub_topic)
         call_count += 1
         bears_fact = chatgpt_conversation(
@@ -146,7 +148,6 @@ def db_store(question, options, correct_option, team):
 
 
 def generate_question_topic():
-    team = "Chicago Bears"
     difficulty = "medium"
     sub_topics = ["Team History", "Legendary Players", "Championship Seasons", "Coaches and Management",
                   "Stadium and Fan Culture", "Rivalries", "Record Breaking Performances", "Draft Picks",
@@ -154,7 +155,7 @@ def generate_question_topic():
                   "Founding Facts", "Previous Team Names", "Legendary Teams", "Stadium Facts"]
     chosen_sub_topic = random.choice(sub_topics)
 
-    return team, difficulty, chosen_sub_topic
+    return difficulty, chosen_sub_topic
 
 
 def get_bert_embedding(sentence):

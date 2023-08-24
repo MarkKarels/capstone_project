@@ -18,12 +18,75 @@
     </ul>
     <p id="correct_option"></p>
 </div>
+<div class="container">
+    <h2>Select a Team:</h2>
+    <label for="team-select"></label><select id="team-select">
+        <option disabled>--- NFC ---</option>
+        <optgroup label="NFC North">
+            <option value="Chicago Bears">Chicago Bears</option>
+            <option value="Detroit Lions">Detroit Lions</option>
+            <option value="Green Bay Packers">Green Bay Packers</option>
+            <option value="Minnesota Vikings">Minnesota Vikings</option>
+        </optgroup>
+        <optgroup label="NFC West">
+            <option value="Arizona Cardinals">Arizona Cardinals</option>
+            <option value="Los Angeles Rams">Los Angeles Rams</option>
+            <option value="San Francisco 49ers">San Francisco 49ers</option>
+            <option value="Seattle Seahawks">Seattle Seahawks</option>
+        </optgroup>
+        <optgroup label="NFC South">
+            <option value="Atlanta Falcons">Atlanta Falcons</option>
+            <option value="Carolina Panthers">Carolina Panthers</option>
+            <option value="New Orleans Saints">New Orleans Saints</option>
+            <option value="Tampa Bay Buccaneers">Tampa Bay Buccaneers</option>
+        </optgroup>
+        <optgroup label="NFC East">
+            <option value="Dallas Cowboys">Dallas Cowboys</option>
+            <option value="New York Giants">New York Giants</option>
+            <option value="Philadelphia Eagles">Philadelphia Eagles</option>
+            <option value="Washington Commanders">Washington Commanders</option>
+        </optgroup>
+    <option disabled>--- AFC ---</option>
+        <optgroup label="AFC North">
+            <option value="Baltimore Ravens">Baltimore Ravens</option>
+            <option value="Cincinnati Bengals">Cincinnati Bengals</option>
+            <option value="Cleveland Browns">Cleveland Browns</option>
+            <option value="Pittsburgh Steelers">Pittsburgh Steelers</option>
+        </optgroup>
+        <optgroup label="AFC West">
+            <option value="Denver Broncos">Denver Broncos</option>
+            <option value="Kansas City Chiefs">Kansas City Chiefs</option>
+            <option value="Las Vegas Raiders">Las Vegas Raiders</option>
+            <option value="Los Angeles Chargers">Los Angeles Chargers</option>
+        </optgroup>
+        <optgroup label="AFC South">
+            <option value="Houston Texans">Houston Texans</option>
+            <option value="Indianapolis Colts">Indianapolis Colts</option>
+            <option value="Jacksonville Jaguars">Jacksonville Jaguars</option>
+            <option value="Tennessee Titans">Tennessee Titans</option>
+        </optgroup>
+        <optgroup label="AFC East">
+            <option value="Buffalo Bills">Buffalo Bills</option>
+            <option value="Miami Dolphins">Miami Dolphins</option>
+            <option value="New England Patriots">New England Patriots</option>
+            <option value="New York Jets">New York Jets</option>
+        </optgroup>
+    </select>
+</div>
 
 <button id="generate-btn">Generate Question</button>
 
 <script>
     document.getElementById('generate-btn').addEventListener('click', function() {
-        fetch('/generate_question', { method: 'POST' })
+        const selectedTeam = document.getElementById('team-select').value;
+
+        fetch('/generate_question', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ team: selectedTeam })
+    })
             .then(response => response.json())
             .then(data => {
                 document.getElementById('question').textContent = data.question;
