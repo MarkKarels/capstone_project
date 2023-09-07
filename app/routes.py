@@ -1,12 +1,16 @@
 import random
 import torch
 import openai
+import requests
+import json
+import os
 
 from flask import render_template, jsonify, request
 from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from app import app
 from app.model import *
+from threading import Timer
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased').eval()
@@ -35,6 +39,28 @@ def generate_question_route():
     })
 
 
+@app.route('/fetch_nfl_data', methods=['GET'])
+def fetch_nfl_data():
+    try:
+        response = requests.get(app.config['SPORTSDATAIO_API_ENDPOINT_PLAYBYPAY'])
+        response.raise_for_status()
+
+        data = response.json()
+
+        # Ensure the directory exists, if not, create it
+        directory = 'app/test_playbyplay'
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        # Save the data in a JSON file inside the directory
+        with open(os.path.join(directory, 'nfl_week1_2017.json'), 'w') as json_file:
+            json.dump(data, json_file, indent=4)
+
+        return jsonify({"message": "Data fetched and saved successfully"}), 200
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 400
+
+
 def chatgpt_conversation(prompt):
     response = openai.ChatCompletion.create(
         model=MODEL_ID,
@@ -57,14 +83,14 @@ def generate_question(team):
         difficulty, chosen_sub_topic = generate_question_topic()
         print(chosen_sub_topic)
         call_count += 1
-        bears_fact = chatgpt_conversation(
+        nfl_fact = chatgpt_conversation(
             f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
             f"{chosen_sub_topic}. Ensure that the question is below 255 characters and each answer is no more than "
             f"7 words. The options provided should be contextually relevant to the question; for example, if asking "
             f"about a defensive record like interceptions, only list players known for playing in defensive positions. "
             f"Avoid opinion/subjective questions and answers, and stick strictly to factual information. Provide four "
             f"options and the correct answer.")
-        question_details = bears_fact.split('\n')
+        question_details = nfl_fact.split('\n')
         print(question_details)
         unwanted_strings = {
             '',
