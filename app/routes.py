@@ -47,14 +47,36 @@ def fetch_nfl_data():
 
         data = response.json()
 
+        # Filtering data for a specific team and extracting only the "Team" and "Description" fields
+        team_to_search_for = "PHI"
+        filtered_data = []
+
+        for game in data:
+            for play in game.get('Plays', []):
+                if play.get('Team') == team_to_search_for or play.get('Opponent') == team_to_search_for:
+                    play_details = {
+                        "Team": play.get('Team'),
+                        "Quarter": play.get('QuarterName'),
+                        "Time Remaining Min": play.get('TimeRemainingMinutes'),
+                        "Time Remaining Sec": play.get('TimeRemainingSeconds'),
+                        "Description": play.get('Description'),
+                        "Type": play.get('Type'),
+                        "Down": play.get('Down'),
+                        "Distance": play.get('Distance'),
+                        "Yards Gained": play.get('YardsGained')
+                    }
+                    if play.get('IsScoringPlay'):
+                        play_details["Scoring Play"] = play.get('ScoringPlay')
+                    filtered_data.append(play_details)
+
         # Ensure the directory exists, if not, create it
         directory = 'app/test_playbyplay'
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        # Save the data in a JSON file inside the directory
-        with open(os.path.join(directory, 'nfl_week1_2017.json'), 'w') as json_file:
-            json.dump(data, json_file, indent=4)
+        # Save the filtered data in a JSON file inside the directory
+        with open(os.path.join(directory, 'nfl_champ_2022.json'), 'w') as json_file:
+            json.dump(filtered_data, json_file, indent=4)
 
         return jsonify({"message": "Data fetched and saved successfully"}), 200
     except requests.exceptions.RequestException as e:
