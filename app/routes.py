@@ -10,6 +10,8 @@ from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from app import app
 from app.model import *
+from langchain.document_loaders import JSONLoader
+from langchain.indexes import VectorstoreIndexCreator
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased').eval()
@@ -22,6 +24,18 @@ call_count = 0
 
 @app.route('/')
 def quiz():
+    return render_template('index.html')
+
+
+@app.route('/ask_from_data')
+def ask_from_data():
+    loader = JSONLoader(
+        file_path='app/test_playbyplay/nfl_champ_2022.json',
+        jq_schema='.[].Description'
+    )
+    index = VectorstoreIndexCreator().from_loaders([loader])
+    result = index.query("who passed to Brandon Aiyuk to the left for 10 yard gain")
+    print(result)
     return render_template('index.html')
 
 
