@@ -8,7 +8,7 @@ import os
 from flask import render_template, jsonify, request
 from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
-from app import app
+from app import app, scheduler
 from app.model import *
 from langchain.document_loaders import JSONLoader
 from langchain.indexes import VectorstoreIndexCreator
@@ -25,6 +25,12 @@ call_count = 0
 @app.route('/')
 def quiz():
     return render_template('index.html')
+
+
+@app.route('/start_scheduler', methods=['GET'])
+def start_scheduler():
+    scheduler.add_job(id='Fetch NFL Data Job', func=fetch_nfl_data, trigger='interval', minutes=5)
+    return "Scheduler started", 200
 
 
 @app.route('/ask_from_data')
@@ -52,35 +58,34 @@ def generate_question_route():
     })
 
 
-@app.route('/fetch_nfl_data', methods=['GET'])
 def fetch_nfl_data():
     try:
         response = requests.get(app.config['SPORTSDATAIO_API_ENDPOINT_PLAYBYPAY'])
         response.raise_for_status()
 
         data = response.json()
+        print(type(data))
 
         # Filtering data for a specific team and extracting only the "Team" and "Description" fields
-        team_to_search_for = "PHI"
+        team_to_search_for = "DEN"
         filtered_data = []
 
-        for game in data:
-            for play in game.get('Plays', []):
-                if play.get('Team') == team_to_search_for or play.get('Opponent') == team_to_search_for:
-                    play_details = {
-                        "Team": play.get('Team'),
-                        "Quarter": play.get('QuarterName'),
-                        "Time Remaining Min": play.get('TimeRemainingMinutes'),
-                        "Time Remaining Sec": play.get('TimeRemainingSeconds'),
-                        "Description": play.get('Description'),
-                        "Type": play.get('Type'),
-                        "Down": play.get('Down'),
-                        "Distance": play.get('Distance'),
-                        "Yards Gained": play.get('YardsGained')
-                    }
-                    if play.get('IsScoringPlay'):
-                        play_details["Scoring Play"] = play.get('ScoringPlay')
-                    filtered_data.append(play_details)
+        for play in data['Plays']:
+            if play.get('Team') == team_to_search_for or play.get('Opponent') == team_to_search_for:
+                play_details = {
+                    "Team": play.get('Team'),
+                    "Quarter": play.get('QuarterName'),
+                    "Time Remaining Min": play.get('TimeRemainingMinutes'),
+                    "Time Remaining Sec": play.get('TimeRemainingSeconds'),
+                    "Description": play.get('Description'),
+                    "Type": play.get('Type'),
+                    "Down": play.get('Down'),
+                    "Distance": play.get('Distance'),
+                    "Yards Gained": play.get('YardsGained')
+                }
+                if play.get('IsScoringPlay'):
+                    play_details["Scoring Play"] = play.get('ScoringPlay')
+                filtered_data.append(play_details)
 
         # Ensure the directory exists, if not, create it
         directory = 'app/test_playbyplay'
@@ -88,12 +93,13 @@ def fetch_nfl_data():
             os.makedirs(directory)
 
         # Save the filtered data in a JSON file inside the directory
-        with open(os.path.join(directory, 'nfl_champ_2022.json'), 'w') as json_file:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        with open(os.path.join(directory, f'2023_Week2_Test_{timestamp}.json'), 'w') as json_file:
             json.dump(filtered_data, json_file, indent=4)
 
-        return jsonify({"message": "Data fetched and saved successfully"}), 200
+        print("Data Fetched and saved successfully")
     except requests.exceptions.RequestException as e:
-        return jsonify({"error": str(e)}), 400
+        print(f"Error: {str(e)}")
 
 
 def chatgpt_conversation(prompt):
