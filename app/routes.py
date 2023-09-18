@@ -59,14 +59,6 @@ def generate_question_route():
         "correct_option": correct_option
     })
 
-def convert_json_to_text(incoming_json_file):
-    with open(incoming_json_file, 'r') as json_file:
-        data = json.load(json_file)
-
-    json_string = json.dumps(data)
-
-    with open('app/my_json_file.txt', 'w') as txt_file:
-        txt_file.write(json_string)
 
 def fetch_nfl_data():
     try:
