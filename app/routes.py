@@ -10,7 +10,7 @@ from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from app import app, scheduler
 from app.model import *
-from langchain.document_loaders import JSONLoader
+from langchain.document_loaders import WebBaseLoader, JSONLoader
 from langchain.indexes import VectorstoreIndexCreator
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
@@ -35,12 +35,14 @@ def start_scheduler():
 
 @app.route('/ask_from_data')
 def ask_from_data():
-    loader = JSONLoader(
-        file_path='app/test_playbyplay/nfl_champ_2022.json',
-        jq_schema='.[].Description'
-    )
+    # loader = JSONLoader(
+    #     file_path='app/test_playbyplay/nfl_champ_2022.json',
+    #     jq_schema='.[].Description'
+    # )
+    loader = WebBaseLoader(app.config['SPORTSDATAIO_API_ENDPOINT_PLAYBYPAY'])
     index = VectorstoreIndexCreator().from_loaders([loader])
-    result = index.query("who passed to Brandon Aiyuk to the left for 10 yard gain")
+    result = index.query("Give me a play where a player scored a touchdown. Give me player name (first and last), quarter, time left in quarter "
+                         "(MM:SS), team that scored, and what the score was in the game and who was in the lead.")
     print(result)
     return render_template('index.html')
 
@@ -57,6 +59,14 @@ def generate_question_route():
         "correct_option": correct_option
     })
 
+def convert_json_to_text(incoming_json_file):
+    with open(incoming_json_file, 'r') as json_file:
+        data = json.load(json_file)
+
+    json_string = json.dumps(data)
+
+    with open('app/my_json_file.txt', 'w') as txt_file:
+        txt_file.write(json_string)
 
 def fetch_nfl_data():
     try:
