@@ -15,7 +15,7 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased').eval()
 app.config.from_object('config')
 openai.api_key = app.config['OPENAI_API_KEY']
-MODEL_ID = 'gpt-3.5-turbo'
+MODEL_ID = 'gpt-4'
 MAX_CALL = 100
 call_count = 0
 
@@ -78,6 +78,61 @@ def fetch_schedule():
         print(f"Error: {str(e)}")
         return f"Failed to fetch the data. Error: {str(e)}", 500
 
+
+@app.route("/fetch_roster_data/<int:week_number>/<string:team_alias>", methods=["GET"])
+def fetch_roster_data(week_number, team_alias):
+    # Step 1: Read the "2023_NFL_SCHEDULE" JSON file to get game ID for the given week and team.
+    with open("app/schedule_data/2023_NFL_SCHEDULE", "r") as json_file:
+        schedule_data = json.load(json_file)
+
+    game_id = None
+    for game in schedule_data:
+        if game["Week Number"] == str(week_number) and (
+                game["Home Team"] == team_alias or game["Away Team"] == team_alias):
+            game_id = game["Game ID"]
+            break
+
+    if not game_id:
+        return f"No game found for week {week_number} and team {team_alias}", 404
+
+    roster_url = f"http://api.sportradar.us/nfl/official/trial/v7/en/games/{game_id}/roster.json?api_key={app.config['SPORTSRADAR_API_KEY']}"
+    response = requests.get(roster_url)
+    response.raise_for_status()
+    roster_data = response.json()
+
+    team_type = None  # This will store either "home" or "away" based on where our team_alias matches
+    if roster_data["home"]["alias"] == team_alias:
+        team_type = "home"
+    elif roster_data["away"]["alias"] == team_alias:
+        team_type = "away"
+
+    if not team_type:
+        return f"Team alias {team_alias} not found in the roster data for game {game_id}", 404
+
+    # Step 3: Extract the roster details for the matched team and filter out players based on their in-game status.
+    active_players = [player for player in roster_data[team_type]["players"] if player["in_game_status"] == "active"]
+
+    # Step 4: Extract the required fields for each player.
+    extracted_data = []
+    for player in active_players:
+        player_data = {
+            "name": player["name"],
+            "jersey": player["jersey"],
+            "abbr_name": player["abbr_name"],
+            "position": player["position"]
+        }
+        extracted_data.append(player_data)
+
+    # Step 3: Store the fetched play-by-play data in the desired directory format.
+    directory = f'app/roster_data'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    with open(os.path.join(directory, f"{team_alias}_week{week_number}.json"), 'w') as json_file:
+        json.dump(extracted_data, json_file, indent=4)
+        return f"Roster data fetched and saved for week {week_number}, team {team_alias}", 200
+
+    return None
 
 @app.route("/fetch_game_data/<int:week_number>/<string:team_alias>", methods=["GET"])
 def fetch_game_data(week_number, team_alias):
@@ -234,6 +289,81 @@ def generate_team_history_question(team):
 
     print('End of the line')
     return None, None, None
+
+
+@app.route("/generate_play_by_play_question/<int:week_number>/<string:team_alias>/<int:quarter>", methods=["GET"])
+def generate_play_by_play_question(week_number, team_alias, quarter):
+    global call_count
+    global MAX_CALL
+
+    play_data = get_play_by_play_data(week_number, team_alias)
+    if not play_data:
+        print("Failed to retrieve play data.")
+        return
+
+    quarter_data = play_data.get(f"Quarter {quarter}", [])
+    if not quarter_data:
+        print(f"No data found for Quarter {quarter}.")
+        return
+
+    # Convert quarter data to a readable format for ChatGPT
+    quarter_summary = ". ".join([f"{play['timestamp']} - {play['description']}" for play in quarter_data])
+
+    for _ in range(MAX_CALL):
+        if call_count >= MAX_CALL:
+            print("Reached Max Call Count: Cannot Generate New Question")
+            return None, None, None
+
+        call_count += 1
+        nfl_fact = chatgpt_conversation(
+            f"Based on the following plays from Quarter {quarter}: \"{quarter_summary}\", generate a unique multiple "
+            f"choice quiz question from big plays. Ensure that the question is below 255 characters and each answer is "
+            f"no more than 7 words. Provide four options and the correct answer. Please provide as much detail as "
+            f"possible including but not limited to time left in quarter. If know, give full player names as options.")
+
+        question_details = nfl_fact.split('\n')
+        print(question_details)
+        unwanted_strings = {
+            '',
+            'Correct Answer:',
+            'Correct Answer: ',
+            'Answer:',
+            'Options:',
+            'Options: ',
+            'Question:',
+            'Question: '
+        }
+
+        question_details = [x for x in question_details if x not in unwanted_strings]
+
+        print(question_details)
+        return f"Question Answer Generated", 200
+    return None, None, None
+
+
+def get_play_by_play_data(week_number, team_alias):
+    # Read the schedule to determine the game file name
+    with open("app/schedule_data/2023_NFL_SCHEDULE", "r") as json_file:
+        schedule_data = json.load(json_file)
+
+    game_id = None
+    home_team = None
+    away_team = None
+    for game in schedule_data:
+        if game["Week Number"] == str(week_number) and (game["Home Team"] == team_alias or game["Away Team"] == team_alias):
+            game_id = game["Game ID"]
+            home_team = game["Home Team"]
+            away_team = game["Away Team"]
+            break
+
+    if not game_id:
+        return None
+
+    file_path = f'app/game_data/{away_team}vs{home_team}.json'
+    with open(file_path, 'r') as json_file:
+        data = json.load(json_file)
+
+    return data
 
 
 def db_store(question, options, correct_option, team):

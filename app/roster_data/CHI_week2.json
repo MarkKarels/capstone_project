@@ -1,0 +1,452 @@
+[
+    {
+        "name": "DJ Moore",
+        "jersey": "02",
+        "abbr_name": "D.Moore",
+        "position": "WR"
+    },
+    {
+        "name": "Jared Pinkney",
+        "jersey": "46",
+        "abbr_name": "J.Pinkney",
+        "position": "TE"
+    },
+    {
+        "name": "Tyler Scott",
+        "jersey": "13",
+        "abbr_name": "T.Scott",
+        "position": "WR"
+    },
+    {
+        "name": "Buddy Johnson",
+        "jersey": "45",
+        "abbr_name": "B.Johnson",
+        "position": "LB"
+    },
+    {
+        "name": "DeMarquis Gates",
+        "jersey": "43",
+        "abbr_name": "D.Gates",
+        "position": "LB"
+    },
+    {
+        "name": "Teven Jenkins",
+        "jersey": "76",
+        "abbr_name": "T.Jenkins",
+        "position": "OL"
+    },
+    {
+        "name": "Dominique Robinson",
+        "jersey": "90",
+        "abbr_name": "D.Robinson",
+        "position": "DL"
+    },
+    {
+        "name": "Stephen Carlson",
+        "jersey": "88",
+        "abbr_name": "S.Carlson",
+        "position": "TE"
+    },
+    {
+        "name": "Aviante Collins",
+        "jersey": "74",
+        "abbr_name": "A.Collins",
+        "position": "OL"
+    },
+    {
+        "name": "DeMarcus Walker",
+        "jersey": "95",
+        "abbr_name": "D.Walker",
+        "position": "DL"
+    },
+    {
+        "name": "Noah Sewell",
+        "jersey": "44",
+        "abbr_name": "N.Sewell",
+        "position": "LB"
+    },
+    {
+        "name": "T.J. Edwards",
+        "jersey": "53",
+        "abbr_name": "T.Edwards",
+        "position": "LB"
+    },
+    {
+        "name": "A.J. Thomas",
+        "jersey": "38",
+        "abbr_name": "A.Thomas",
+        "position": "DB"
+    },
+    {
+        "name": "Jalen Harris",
+        "jersey": "59",
+        "abbr_name": "J.Harris",
+        "position": "DL"
+    },
+    {
+        "name": "Daniel Hardy",
+        "jersey": "92",
+        "abbr_name": "D.Hardy",
+        "position": "LB"
+    },
+    {
+        "name": "Cole Kmet",
+        "jersey": "85",
+        "abbr_name": "C.Kmet",
+        "position": "TE"
+    },
+    {
+        "name": "Eddie Jackson",
+        "jersey": "04",
+        "abbr_name": "E.Jackson",
+        "position": "DB"
+    },
+    {
+        "name": "Khalil Herbert",
+        "jersey": "24",
+        "abbr_name": "K.Herbert",
+        "position": "RB"
+    },
+    {
+        "name": "Justin Fields",
+        "jersey": "01",
+        "abbr_name": "J.Fields",
+        "position": "QB"
+    },
+    {
+        "name": "Roy Mbaeteka",
+        "jersey": "78",
+        "abbr_name": "R.Mbaeteka",
+        "position": "OL"
+    },
+    {
+        "name": "Jaylon Johnson",
+        "jersey": "33",
+        "abbr_name": "J.Johnson",
+        "position": "DB"
+    },
+    {
+        "name": "Travis Bell",
+        "jersey": "73",
+        "abbr_name": "T.Bell",
+        "position": "DL"
+    },
+    {
+        "name": "Elijah Hicks",
+        "jersey": "22",
+        "abbr_name": "E.Hicks",
+        "position": "DB"
+    },
+    {
+        "name": "Ja'Tyre Carter",
+        "jersey": "69",
+        "abbr_name": "J.Carter",
+        "position": "OL"
+    },
+    {
+        "name": "Deslin Alexandre",
+        "jersey": "50",
+        "abbr_name": "D.Alexandre",
+        "position": "DL"
+    },
+    {
+        "name": "Chase Claypool",
+        "jersey": "10",
+        "abbr_name": "C.Claypool",
+        "position": "WR"
+    },
+    {
+        "name": "Lucas Patrick",
+        "jersey": "62",
+        "abbr_name": "L.Patrick",
+        "position": "OL"
+    },
+    {
+        "name": "Braxton Jones",
+        "jersey": "70",
+        "abbr_name": "B.Jones",
+        "position": "OL"
+    },
+    {
+        "name": "Bill Murray",
+        "jersey": "60",
+        "abbr_name": "B.Murray",
+        "position": "OL"
+    },
+    {
+        "name": "Robert Tonyan",
+        "jersey": "18",
+        "abbr_name": "R.Tonyan",
+        "position": "TE"
+    },
+    {
+        "name": "Tyson Bagent",
+        "jersey": "17",
+        "abbr_name": "T.Bagent",
+        "position": "QB"
+    },
+    {
+        "name": "Nate Davis",
+        "jersey": "64",
+        "abbr_name": "N.Davis",
+        "position": "OL"
+    },
+    {
+        "name": "Kyler Gordon",
+        "jersey": "06",
+        "abbr_name": "K.Gordon",
+        "position": "DB"
+    },
+    {
+        "name": "Patrick Scales",
+        "jersey": "48",
+        "abbr_name": "P.Scales",
+        "position": "LS"
+    },
+    {
+        "name": "Doug Kramer",
+        "jersey": "68",
+        "abbr_name": "D.Kramer",
+        "position": "OL"
+    },
+    {
+        "name": "Yannick Ngakoue",
+        "jersey": "91",
+        "abbr_name": "Y.Ngakoue",
+        "position": "DL"
+    },
+    {
+        "name": "Terell Smith",
+        "jersey": "32",
+        "abbr_name": "T.Smith",
+        "position": "DB"
+    },
+    {
+        "name": "Jaylon Jones",
+        "jersey": "31",
+        "abbr_name": "J.Jones",
+        "position": "DB"
+    },
+    {
+        "name": "Jack Sanborn",
+        "jersey": "57",
+        "abbr_name": "J.Sanborn",
+        "position": "LB"
+    },
+    {
+        "name": "Justin Jones",
+        "jersey": "93",
+        "abbr_name": "J.Jones",
+        "position": "DL"
+    },
+    {
+        "name": "Dylan Cole",
+        "jersey": "55",
+        "abbr_name": "D.Cole",
+        "position": "LB"
+    },
+    {
+        "name": "Matt Farniok",
+        "jersey": "63",
+        "abbr_name": "M.Farniok",
+        "position": "OL"
+    },
+    {
+        "name": "Greg Stroman Jr.",
+        "jersey": "27",
+        "abbr_name": "G.Stroman",
+        "position": "DB"
+    },
+    {
+        "name": "Roschon Johnson",
+        "jersey": "23",
+        "abbr_name": "R.Johnson",
+        "position": "RB"
+    },
+    {
+        "name": "Khalid Kareem",
+        "jersey": "52",
+        "abbr_name": "K.Kareem",
+        "position": "DL"
+    },
+    {
+        "name": "Darnell Wright",
+        "jersey": "58",
+        "abbr_name": "D.Wright",
+        "position": "OL"
+    },
+    {
+        "name": "Tyrique Stevenson",
+        "jersey": "29",
+        "abbr_name": "T.Stevenson",
+        "position": "DB"
+    },
+    {
+        "name": "Velus Jones Jr.",
+        "jersey": "12",
+        "abbr_name": "V.Jones",
+        "position": "WR"
+    },
+    {
+        "name": "Trent Taylor",
+        "jersey": "15",
+        "abbr_name": "T.Taylor",
+        "position": "WR"
+    },
+    {
+        "name": "Equanimeous St. Brown",
+        "jersey": "19",
+        "abbr_name": "E.St. Brown",
+        "position": "WR"
+    },
+    {
+        "name": "Andrew Billings",
+        "jersey": "97",
+        "abbr_name": "A.Billings",
+        "position": "DL"
+    },
+    {
+        "name": "Cairo Santos",
+        "jersey": "08",
+        "abbr_name": "C.Santos",
+        "position": "K"
+    },
+    {
+        "name": "Macon Clark",
+        "jersey": "25",
+        "abbr_name": "M.Clark",
+        "position": "DB"
+    },
+    {
+        "name": "Robert Burns",
+        "jersey": "45",
+        "abbr_name": "R.Burns",
+        "position": "FB"
+    },
+    {
+        "name": "Rasheem Green",
+        "jersey": "94",
+        "abbr_name": "R.Green",
+        "position": "DL"
+    },
+    {
+        "name": "Darnell Mooney",
+        "jersey": "11",
+        "abbr_name": "D.Mooney",
+        "position": "WR"
+    },
+    {
+        "name": "Dan Feeney",
+        "jersey": "67",
+        "abbr_name": "D.Feeney",
+        "position": "OL"
+    },
+    {
+        "name": "Kendall Williamson",
+        "jersey": "36",
+        "abbr_name": "K.Williamson",
+        "position": "DB"
+    },
+    {
+        "name": "Zacch Pickens",
+        "jersey": "96",
+        "abbr_name": "Z.Pickens",
+        "position": "DL"
+    },
+    {
+        "name": "Gervon Dexter Sr.",
+        "jersey": "99",
+        "abbr_name": "G.Dexter",
+        "position": "DL"
+    },
+    {
+        "name": "Travis Homer",
+        "jersey": "20",
+        "abbr_name": "T.Homer",
+        "position": "RB"
+    },
+    {
+        "name": "Nathan Peterman",
+        "jersey": "14",
+        "abbr_name": "N.Peterman",
+        "position": "QB"
+    },
+    {
+        "name": "Khari Blasingame",
+        "jersey": "35",
+        "abbr_name": "K.Blasingame",
+        "position": "FB"
+    },
+    {
+        "name": "Micah Baskerville",
+        "jersey": "47",
+        "abbr_name": "M.Baskerville",
+        "position": "LB"
+    },
+    {
+        "name": "Jaquan Brisker",
+        "jersey": "09",
+        "abbr_name": "J.Brisker",
+        "position": "DB"
+    },
+    {
+        "name": "D'Onta Foreman",
+        "jersey": "21",
+        "abbr_name": "D.Foreman",
+        "position": "RB"
+    },
+    {
+        "name": "Cody Whitehair",
+        "jersey": "65",
+        "abbr_name": "C.Whitehair",
+        "position": "OL"
+    },
+    {
+        "name": "Larry Borom",
+        "jersey": "75",
+        "abbr_name": "L.Borom",
+        "position": "OL"
+    },
+    {
+        "name": "Tremaine Edmunds",
+        "jersey": "49",
+        "abbr_name": "T.Edmunds",
+        "position": "LB"
+    },
+    {
+        "name": "Quindell Johnson",
+        "jersey": "26",
+        "abbr_name": "Q.Johnson",
+        "position": "DB"
+    },
+    {
+        "name": "Trenton Gill",
+        "jersey": "16",
+        "abbr_name": "T.Gill",
+        "position": "P"
+    },
+    {
+        "name": "Josh Blackwell",
+        "jersey": "39",
+        "abbr_name": "J.Blackwell",
+        "position": "DB"
+    },
+    {
+        "name": "Marcedes Lewis",
+        "jersey": "84",
+        "abbr_name": "M.Lewis",
+        "position": "TE"
+    },
+    {
+        "name": "John Parker Romo",
+        "jersey": "46",
+        "abbr_name": "J.Romo",
+        "position": "K"
+    },
+    {
+        "name": "Nsimba Webster",
+        "jersey": "83",
+        "abbr_name": "N.Webster",
+        "position": "WR"
+    }
+]
