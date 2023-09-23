@@ -1,0 +1,1906 @@
+[
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "88b69b59-d7b9-4572-84d8-6ec00f9af626",
+        "Home Team": "KC",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "29572e8e-e260-43ea-85d8-25b05dc2b8cb",
+        "Home Team": "NO",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "2cc52209-4aae-43e5-9c25-65407907a01b",
+        "Home Team": "IND",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "36710c13-8f70-4a13-bd70-e1bfc74c3ab8",
+        "Home Team": "MIN",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "6651d05f-21f5-4e6c-a595-43358844d80a",
+        "Home Team": "WAS",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "84b20c0a-0be4-4efd-9359-5e31f912ad8a",
+        "Home Team": "PIT",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "85bf59a4-8df7-45c9-9de5-bced0dab7aa2",
+        "Home Team": "CLE",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "a3ea95c6-4579-4df3-b6ca-fc94985c8772",
+        "Home Team": "ATL",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "fb9cacd2-fa41-4067-a387-1c2086cfc729",
+        "Home Team": "BAL",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "67727342-163e-40ad-9231-c967a1963fd0",
+        "Home Team": "CHI",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "7fa08811-7cf6-4f09-a3b6-f35e91ab055e",
+        "Home Team": "NE",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "96f5c24c-b61f-4c3c-b93d-e576cdb7cf15",
+        "Home Team": "SEA",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "9c9fb62d-5350-49a8-8be1-ef614a1fd2de",
+        "Home Team": "LAC",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "bf8bf897-a90f-4b1e-a993-d1982d1aeb0a",
+        "Home Team": "DEN",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "2ae69508-068e-4f79-a0f0-074e1411547a",
+        "Home Team": "NYG",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "b97007d7-03b1-4ef9-8fb1-d96d7abdb722",
+        "Week Number": "1",
+        "Game ID": "110704e9-21f9-4ef8-ab83-df09573c1a9f",
+        "Home Team": "NYJ",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "c1052576-390a-49b8-9101-88e7d802b464",
+        "Home Team": "PHI",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "06d861af-db7b-4dd0-a916-e91f5c74e2c3",
+        "Home Team": "TB",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "091f8aa6-6844-4584-82fc-ec3342a76557",
+        "Home Team": "ATL",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "1019abc3-1b91-4bae-a733-37553104838d",
+        "Home Team": "HOU",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "134e5c18-f21d-40c6-a3ac-27aaaf490fd2",
+        "Home Team": "DET",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "2917e52e-5e28-4e78-a6b9-beabc5c5ab18",
+        "Home Team": "TEN",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "33cfcb29-b952-413c-873c-49e1b04c2af1",
+        "Home Team": "CIN",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "475473bd-aa3b-48d2-ab10-7778e5b52421",
+        "Home Team": "BUF",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "f9966c0e-a62f-49f4-8ed8-11eb088e8f2d",
+        "Home Team": "JAC",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "10b3c063-e45a-4118-8de0-978511b11f72",
+        "Home Team": "LA",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "93d3eca5-4d23-4cac-b4df-478dbb5e02e5",
+        "Home Team": "ARI",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "8836bca8-5cf0-490d-898d-628a2aeaa567",
+        "Home Team": "DAL",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "9bb5672f-4968-4d61-ae96-db32e26b10bb",
+        "Home Team": "DEN",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "51923306-5934-45db-b49b-02c77bebff0e",
+        "Home Team": "NE",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "995df8e1-07b7-447a-95f7-8a7462fa3552",
+        "Home Team": "CAR",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "0bd700b9-3628-4aa3-a416-31049fc5ace9",
+        "Week Number": "2",
+        "Game ID": "a7704921-505f-4680-a7e7-d0d1862dd970",
+        "Home Team": "PIT",
+        "Away Team": "CLE"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "b475e5e4-580e-4d9d-8e4f-caf486a0d26a",
+        "Home Team": "SF",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "097a36e8-c61c-4b76-b415-e6dc2da98d00",
+        "Home Team": "BAL",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "2871c33a-b958-44c0-a690-a4ffceb7972a",
+        "Home Team": "MIA",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "303f0fac-ec12-4ed9-803c-99eabe0a010d",
+        "Home Team": "NYJ",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "3633529a-1741-4905-81ed-08482c76ba23",
+        "Home Team": "JAC",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "5520fd9f-d5d2-4dbb-9713-8947dbc9f569",
+        "Home Team": "CLE",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "8fdd0e6f-d8b0-45de-8c48-967a88b159a6",
+        "Home Team": "DET",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "9af87d82-7907-4c5c-9f1f-4cda1d762033",
+        "Home Team": "GB",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "b993e54b-47f5-47c0-92b3-e5c325cbce66",
+        "Home Team": "WAS",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "ccdb35ce-2d0e-497e-8162-840572df94c1",
+        "Home Team": "MIN",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "2273ef3a-6eff-4028-824a-9e7224a323c8",
+        "Home Team": "SEA",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "9e665e5b-0ab8-4ccd-a6ac-2a4d13afba63",
+        "Home Team": "KC",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "c077107a-4497-46e7-97b1-ac323e946134",
+        "Home Team": "ARI",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "8c138263-1dc1-4e28-96ee-21158684cd55",
+        "Home Team": "LV",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "acf1f2a6-1e48-4971-aa52-1a32e322d63f",
+        "Home Team": "TB",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "d0c2a811-2484-4da9-9082-a1f7ee98f96d",
+        "Week Number": "3",
+        "Game ID": "b56959d3-74b7-4cc6-9169-eba8d60608be",
+        "Home Team": "CIN",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "b9c4e80c-88bc-4029-8ab3-07148e599274",
+        "Home Team": "GB",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "6b8096f3-86c2-48bd-b98a-a4bec7f481c9",
+        "Home Team": "JAC",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "16da0c37-5e2e-4b36-a990-eda22e811cd7",
+        "Home Team": "HOU",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "170250b1-26b1-44ad-8e93-be76305ac667",
+        "Home Team": "IND",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "4b94c5f8-47de-4704-97fd-0fc3886c6c43",
+        "Home Team": "CAR",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "621e89cf-9018-42b9-8afe-d234e30d2f6b",
+        "Home Team": "NO",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "667e5a52-a24a-4f03-8a9b-2bf65d9c80ab",
+        "Home Team": "PHI",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "8899218a-fdf9-4e16-b7b9-fd4cd10b86f1",
+        "Home Team": "BUF",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "91b107b8-c59f-4621-a585-ec48d54bbec1",
+        "Home Team": "TEN",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "aec1377b-1013-4c2d-9acc-46e13340ed17",
+        "Home Team": "CLE",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "fe8484a3-0a70-4621-bb24-7aa1ff706654",
+        "Home Team": "CHI",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "2039b2f6-1e7e-4b04-a748-9c16c1685147",
+        "Home Team": "LAC",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "6b84f1cd-1001-458f-81ae-3789bd4c5b8b",
+        "Home Team": "DAL",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "cad23233-f52d-43ee-9de5-1eba538784d8",
+        "Home Team": "SF",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "aeb50a76-6411-46ce-98f0-189082122dce",
+        "Home Team": "NYJ",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "1816fce5-3c9c-4933-a51c-1e46bf31a730",
+        "Week Number": "4",
+        "Game ID": "ef3b9907-3ed0-43f4-9b2b-75d69398f57b",
+        "Home Team": "NYG",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "7af57f0d-1db1-4790-a929-07547d3b4c7c",
+        "Home Team": "WAS",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "f2bb9067-f889-4366-9f4d-b882dbcb5180",
+        "Home Team": "BUF",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "3751d242-c51f-46f0-8b80-8acd0ea64554",
+        "Home Team": "IND",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "4674a3cb-a6db-44de-b5ff-43b3514aad57",
+        "Home Team": "ATL",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "798b89c1-25a4-4374-b794-58f30bb8fa64",
+        "Home Team": "DET",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "995c3800-4995-4994-87e6-383e80a02b28",
+        "Home Team": "PIT",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "dbd2e6d3-4468-4e26-a4b4-548beae97ffd",
+        "Home Team": "NE",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "dc105cfb-5e42-4b1a-b57f-7cd822fe4c13",
+        "Home Team": "MIA",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "0e853aec-266e-48c8-bbd5-290385f341e1",
+        "Home Team": "LA",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "f0aa2ade-8128-400e-b26e-315833759b93",
+        "Home Team": "ARI",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "ac792574-1d49-48e7-af5f-9cf618402d4d",
+        "Home Team": "DEN",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "f5a05fb8-5fce-47f2-bd0c-8ab61d7c86f4",
+        "Home Team": "MIN",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "f3771533-4836-4812-a9dc-cfd723b3ce48",
+        "Home Team": "SF",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "18032342-8873-4349-8792-5b05af2b0075",
+        "Week Number": "5",
+        "Game ID": "0a8d8f54-a2c6-42ea-a7a8-c04077bf15ba",
+        "Home Team": "LV",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "eb4c2dca-b464-42a9-ba46-b5546e1cb9c3",
+        "Home Team": "KC",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "b6ea4083-5d31-4061-a984-31cd69f8572b",
+        "Home Team": "TEN",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "208d722a-0a3a-4191-b9cc-61aaa7a545af",
+        "Home Team": "ATL",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "46dfa19a-bd6b-41c6-8f24-840c7588fe59",
+        "Home Team": "TB",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "91839912-1452-49af-9e29-c4a9c96e8a18",
+        "Home Team": "CLE",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "941a5959-111d-431b-a1d4-38231a26dc21",
+        "Home Team": "HOU",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "98e64983-4460-4ead-8490-73124bb9f25f",
+        "Home Team": "MIA",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "d6c8527c-5735-40a8-a91b-bcc96c4d9aca",
+        "Home Team": "CIN",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "e6c053eb-19b2-4a91-b810-a823df216bda",
+        "Home Team": "JAC",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "f1946916-a87b-4d44-a60a-407e25397040",
+        "Home Team": "CHI",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "31c79ef7-b632-4ee0-9da4-6d4bd400867b",
+        "Home Team": "LV",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "0f26b77e-4e60-4231-806f-74fd751e76c5",
+        "Home Team": "LA",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "6866131a-c15d-4b3c-9f15-aeff08d50e23",
+        "Home Team": "NYJ",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "e8b3ce79-bafd-4354-9181-2d7b9df89d23",
+        "Home Team": "BUF",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "7149021b-2fc4-441b-9944-9dba7cee2bf3",
+        "Week Number": "6",
+        "Game ID": "a8255a2f-1dd2-4555-bc9b-61b35c6115da",
+        "Home Team": "LAC",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "05d7709e-c558-4549-b5cb-b7aae2987e7e",
+        "Home Team": "NO",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "0c52ea82-0f2f-4024-bde7-b5571e13fb01",
+        "Home Team": "BAL",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "1b5d9445-c337-4a49-b600-ca98f4538638",
+        "Home Team": "TB",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "68dd7644-8549-473a-aa23-f5587b1d90db",
+        "Home Team": "NYG",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "86a7972f-f3bf-452a-a808-66d484851f4a",
+        "Home Team": "CHI",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "c5f826f9-7f92-401a-b3b5-c4f7743c6d24",
+        "Home Team": "NE",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "c64a803d-9681-425e-bd4b-8c9423f8e6a9",
+        "Home Team": "IND",
+        "Away Team": "CLE"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "50565c54-2e14-4884-96fb-f259aec55a2e",
+        "Home Team": "LA",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "f9056e07-780d-455a-bc1c-ff03d4f20fdb",
+        "Home Team": "SEA",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "1ba76f67-8356-45b2-884e-f45185a26dba",
+        "Home Team": "KC",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "b63e3b78-d93c-4fd8-b8f7-f21cf376cbca",
+        "Home Team": "DEN",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "7b2da75e-2f9e-4a6a-ba4c-ba6d98ac32d2",
+        "Home Team": "PHI",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "b3d6508a-470d-4c4a-9b05-da39d3380224",
+        "Week Number": "7",
+        "Game ID": "88081ea3-9c5f-4953-8f8a-dd2b8e96709a",
+        "Home Team": "MIN",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "fd9f7b9c-cea0-442d-b538-35d039772dfb",
+        "Home Team": "BUF",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "08bc19a0-57a0-4384-ad54-e1841617eb52",
+        "Home Team": "WAS",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "12db1871-7157-431e-81ee-0ab0394d29d0",
+        "Home Team": "IND",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "585f12fd-212f-44ce-9dbf-ff54a770a6a7",
+        "Home Team": "PIT",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "6569f839-673a-4aca-8447-fc7819d4ba68",
+        "Home Team": "NYG",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "90edc301-f8be-449d-b305-cb6564de763d",
+        "Home Team": "CAR",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "94d238aa-f794-4c2e-beb2-66155c9b5cb0",
+        "Home Team": "MIA",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "f059907e-faa8-455b-8eee-50f5fc8c3e56",
+        "Home Team": "TEN",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "f1099e5b-7021-4afd-9738-d5c44149414a",
+        "Home Team": "GB",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "f7066066-e0ce-4de3-b34d-09d9c542652d",
+        "Home Team": "DAL",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "cbf85125-cfe6-4a87-a0b3-997bad59c048",
+        "Home Team": "SEA",
+        "Away Team": "CLE"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "2148ee07-5ef0-4225-ab7b-7e90828916cb",
+        "Home Team": "DEN",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "966ab6e4-153a-4c1f-8cac-98163cd98caf",
+        "Home Team": "SF",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "9c6a9bf4-91f0-4bff-98c8-aa9efe6e9c0e",
+        "Home Team": "ARI",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "d457fa6f-aa5e-4923-a683-b723a0cee085",
+        "Home Team": "LAC",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "069d089d-ed2a-4a3b-8ec6-bee2f77ca4cb",
+        "Week Number": "8",
+        "Game ID": "121b662e-307d-47d2-a2db-9f383ffb0e3a",
+        "Home Team": "DET",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "ccd5ad1a-f15c-4bad-9a4e-18a3d5d23fe3",
+        "Home Team": "PIT",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "a5bcd714-9e0f-4732-83ef-277c70a60c39",
+        "Home Team": "KC",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "4ae2a998-855d-4746-a1ac-a35bca05a9e7",
+        "Home Team": "ATL",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "68f2e7c1-76cf-4b3e-9ba4-48a735d7d5c9",
+        "Home Team": "BAL",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "7d46cf07-8a9d-40c7-84bf-7c6b98047f2c",
+        "Home Team": "NO",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "9550e518-b2be-4ef0-853f-48ed518d600d",
+        "Home Team": "CLE",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "b5c289ca-4905-494a-85ad-7c25d1c5586b",
+        "Home Team": "HOU",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "d13a3998-07a6-4fbb-b2d9-9092079b58a4",
+        "Home Team": "NE",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "f22a607d-42d2-4d3b-939a-ef537b6ec9b9",
+        "Home Team": "GB",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "bac639e2-d391-4483-acf8-18d77185f243",
+        "Home Team": "CAR",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "7e44751b-9d3d-4722-aa34-959d722a7eb4",
+        "Home Team": "PHI",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "b1024e2b-bd0b-4c16-8ac8-42616be1ce79",
+        "Home Team": "LV",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "647d4013-1c0e-489c-bd79-56ab9c409ee2",
+        "Home Team": "CIN",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "a12c972e-cc86-4b46-8377-ae8a93160ae4",
+        "Week Number": "9",
+        "Game ID": "25d42cdf-c6e7-41a3-a725-de6f6cb772d0",
+        "Home Team": "NYJ",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "4bed48a6-a6ba-4dfb-aaf5-6a656012f011",
+        "Home Team": "CHI",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "d468f3aa-b44f-4bd7-9289-20b2b9578d8a",
+        "Home Team": "NE",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "29b710d2-b858-48a1-89ef-96a274399e03",
+        "Home Team": "PIT",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "573c2928-75f0-4b8e-969a-e89ece45fd58",
+        "Home Team": "MIN",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "5c95aadb-a7e9-4bcf-a029-de98b289d1a1",
+        "Home Team": "CIN",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "b369059f-7afa-432e-a036-81c568eebe1c",
+        "Home Team": "BAL",
+        "Away Team": "CLE"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "b820ed44-098a-4c44-a28b-71203299a4a9",
+        "Home Team": "TB",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "ea2ecf20-1fdf-4fa6-93fa-ebd69740b15a",
+        "Home Team": "JAC",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "16457a3c-fff2-47cf-968a-0b9f4ca8e72f",
+        "Home Team": "LAC",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "ea03abc0-8249-4a32-9634-85f92175cf85",
+        "Home Team": "ARI",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "22addc26-3d63-479f-b15b-6574214df72f",
+        "Home Team": "SEA",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "ef1efd80-b879-4c44-896b-96e913683fd7",
+        "Home Team": "DAL",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "e8d73abd-549f-4dbb-9775-6400369090b3",
+        "Home Team": "LV",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "9d81d807-ef3c-4335-94c4-981b376df6bc",
+        "Week Number": "10",
+        "Game ID": "d76e1ced-576d-4915-ac04-f1893772864c",
+        "Home Team": "BUF",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "643adc23-5f34-4b1d-8051-e40344a58a9b",
+        "Home Team": "BAL",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "00d2cf55-59d3-4486-ae3e-9c1e338fdaf5",
+        "Home Team": "CAR",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "5a8b6e08-5379-4c81-9a0a-0c31c1b7dd02",
+        "Home Team": "CLE",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "7b90aa8c-0c4b-485e-b747-60a7a02c6009",
+        "Home Team": "DET",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "977145c3-a123-4bfd-a4ad-702e77b860ae",
+        "Home Team": "HOU",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "a03a8c20-a355-48a5-85f1-cdf446305709",
+        "Home Team": "MIA",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "c69aa504-fcd9-4dff-a261-a1e1bf4f4c9a",
+        "Home Team": "WAS",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "cea16d81-991e-4560-8af5-7fb15a631c43",
+        "Home Team": "GB",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "f87e5f4f-d97c-4e86-9bc4-5a1539c41d04",
+        "Home Team": "JAC",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "9e858d5f-c8c6-4fed-b15c-4ffbe49b4002",
+        "Home Team": "SF",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "116f6230-d01f-40d5-901d-1baf79e4986a",
+        "Home Team": "BUF",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "16a019e0-ab0a-47c4-883f-3b6eec5e03a5",
+        "Home Team": "LA",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "9715aada-fd9d-4e6b-9824-13629029cf6a",
+        "Home Team": "DEN",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "796e39da-8763-4523-b029-1de18ba09568",
+        "Week Number": "11",
+        "Game ID": "5eedbc61-0130-459e-a640-efcc30708407",
+        "Home Team": "KC",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "9190f168-b337-4e0c-8125-be23e8997c48",
+        "Home Team": "DET",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "c452d212-f557-4234-83ad-d66fa417d3e5",
+        "Home Team": "DAL",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "0b230e93-217b-4938-a9cf-324d95b4c8f7",
+        "Home Team": "SEA",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "0133115f-86e4-46ee-b527-c793a1a1ebed",
+        "Home Team": "NYJ",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "09351e38-7ca1-4bd2-8c13-8d6af8fcd9c1",
+        "Home Team": "HOU",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "0e44c04f-93ff-4196-8664-47246c17b4bf",
+        "Home Team": "CIN",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "44de8740-e448-4016-adf6-02501056d48b",
+        "Home Team": "TEN",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "5d5eb028-65f2-454e-8aca-5ec00fb31785",
+        "Home Team": "ATL",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "6c37caee-72d0-4eab-9fc5-a11155504d39",
+        "Home Team": "IND",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "710037c3-9ffd-47e5-9e47-9ec56f87ea94",
+        "Home Team": "NYG",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "29f5d3d8-b174-4a65-8f3f-008ea4afa75d",
+        "Home Team": "DEN",
+        "Away Team": "CLE"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "aa6d465e-8567-40ce-9e52-6c0d0895de82",
+        "Home Team": "ARI",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "836211c3-a784-44d9-a704-3fc0c7364855",
+        "Home Team": "PHI",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "e80738f3-d456-4d00-991d-580cbc993a1b",
+        "Home Team": "LV",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "3cbffd50-da79-4ffb-a04b-766176b1ea00",
+        "Home Team": "LAC",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "e2c914da-73a9-4f12-8016-cc86d392dd7f",
+        "Week Number": "12",
+        "Game ID": "fc1105aa-9391-42b9-a59f-0b8879642cde",
+        "Home Team": "MIN",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "6101c145-f366-4918-8642-d7936f38c214",
+        "Home Team": "DAL",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "64ef040c-fbfd-4599-8d5f-0af7c00a6f67",
+        "Home Team": "WAS",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "92503fb3-b59c-4c54-a639-fa88067a3e17",
+        "Home Team": "TEN",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "a0796442-e122-49d3-a735-f8e9e4b71f28",
+        "Home Team": "TB",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "c1d7d797-4187-45a5-ad40-54eacb7d6754",
+        "Home Team": "NYJ",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "c62de0b4-a85e-498e-a007-eb0eb7df47aa",
+        "Home Team": "PIT",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "dd216370-628b-45a4-938c-83dad15dc60f",
+        "Home Team": "NO",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "e06640f6-dbdb-430c-b1a9-f398477a0f81",
+        "Home Team": "NE",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "4d89a5c1-9d45-40fa-acb9-4af0b43cfe72",
+        "Home Team": "HOU",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "0faaca68-aae3-4632-b12b-35a9c8b7941e",
+        "Home Team": "PHI",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "3bb41c33-5d92-46c5-8954-dea91ef6dc0e",
+        "Home Team": "LA",
+        "Away Team": "CLE"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "c3184f83-079a-4a79-a4d9-d1f31b9d2de7",
+        "Home Team": "GB",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "0796e6a9-84ca-4651-9813-bc8bb391ad95",
+        "Week Number": "13",
+        "Game ID": "0b65ee33-24f0-4dce-942d-ab994f600328",
+        "Home Team": "JAC",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "aa0f5109-cc6b-41b3-be37-b47d80e21e51",
+        "Home Team": "PIT",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "15bb08b6-5b5d-41d8-bf94-a287c1a89adc",
+        "Home Team": "NO",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "20cb63bb-cb3a-4682-9ae7-4ca884fd8d15",
+        "Home Team": "BAL",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "63826426-2bfc-4092-be72-0e217ae59945",
+        "Home Team": "CIN",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "a8db3d9a-c5fc-44fe-a672-b15ad4fb52c9",
+        "Home Team": "CLE",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "b1aaf072-e11f-44e0-81a2-b01f005065b6",
+        "Home Team": "CHI",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "efd4ae35-4de5-47d4-85fe-cfcdbe3d68c1",
+        "Home Team": "ATL",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "f9ec8c4b-2a60-409f-804a-bead8260e2a4",
+        "Home Team": "NYJ",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "261e687a-fcd0-4ccc-8691-bb4b7b321106",
+        "Home Team": "SF",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "88d49c99-0da4-4502-81d2-6def83bb058a",
+        "Home Team": "LV",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "8f11c18a-3ed1-40f3-94c5-7aca9fb9de47",
+        "Home Team": "KC",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "ebdaafda-0bae-4a34-9e44-349841e1b3bc",
+        "Home Team": "LAC",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "1afdd4c3-89b8-4e67-8e1b-295f3fa2d4d3",
+        "Home Team": "DAL",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "7d4cba90-ef28-4c39-875a-02ab9fe44ae5",
+        "Home Team": "NYG",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "ee7d2acc-de87-4f2d-991b-53b553f9e1cf",
+        "Week Number": "14",
+        "Game ID": "a83301f9-7a05-4159-9a05-35a2cba4bc15",
+        "Home Team": "MIA",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "f7ea44fb-336b-4b4e-a369-70f9ef56174d",
+        "Home Team": "LV",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "00e3dae8-7b4c-411d-baec-d442e90ce83b",
+        "Home Team": "GB",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "2d05d91d-40c9-4e81-9aa2-5a8c3b3d8b6c",
+        "Home Team": "CAR",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "3038430d-fa45-4405-b964-7c69bf5206fc",
+        "Home Team": "NO",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "3d21e60f-18aa-4a25-bc47-ba6bc31f4938",
+        "Home Team": "CIN",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "960b80c5-f160-46ee-8817-97f860b5f12b",
+        "Home Team": "IND",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "c85d6cbc-539a-4824-b63a-e7e738cc42f2",
+        "Home Team": "TEN",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "e7fe0f04-657a-4d37-94be-fbbfc7ed3fac",
+        "Home Team": "DET",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "f7d26865-09cf-497d-95ab-f8db2025c87a",
+        "Home Team": "CLE",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "f8220a12-14c1-446d-bb37-a8e68112dfe9",
+        "Home Team": "MIA",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "487cde3c-2485-4b70-a6b1-2c979b7ee396",
+        "Home Team": "LA",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "7f4a2ce0-6d10-46a1-8cb5-09bae643e9d7",
+        "Home Team": "ARI",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "322508eb-5e6c-42d1-b91e-c08535bcf245",
+        "Home Team": "SEA",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "96053ae2-93e8-41d6-bdab-0d1c27eacbcb",
+        "Home Team": "BUF",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "adac5637-60ed-446c-ac7f-df47c122c46f",
+        "Home Team": "JAC",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "82aaee66-c27c-4982-9afa-682d30153d3e",
+        "Week Number": "15",
+        "Game ID": "5a0811de-acf0-48ae-8983-b84e830589b8",
+        "Home Team": "NE",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "a5c8ad6c-fadd-4c57-89d3-c3166f20ff87",
+        "Home Team": "LA",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "389ffb68-0764-4e36-81a3-fb23055c6c32",
+        "Home Team": "PIT",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "fd64785d-5a73-4a12-8ca7-6ffe8233cf2b",
+        "Home Team": "LAC",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "19a88df4-b884-496a-b581-078de5c163c7",
+        "Home Team": "TEN",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "42375c35-091a-4e0b-9b8d-fe07ef05cdcd",
+        "Home Team": "ATL",
+        "Away Team": "IND"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "6d4d690d-a763-40c3-91e9-48d298018c9a",
+        "Home Team": "HOU",
+        "Away Team": "CLE"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "945e166e-44da-4fb4-b3b3-575b0ca24e7c",
+        "Home Team": "CAR",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "aed5b2ec-ff34-419b-b159-fabab8a6cc73",
+        "Home Team": "NYJ",
+        "Away Team": "WAS"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "c2dcdbbd-3de4-4b79-9b1c-401a21f7063e",
+        "Home Team": "MIN",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "bf34bf3a-0af6-498f-b11e-10e789b18826",
+        "Home Team": "TB",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "2aaece03-c4c4-4c07-9835-3c523cec2925",
+        "Home Team": "CHI",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "36659169-5373-4de0-80ca-06ac24c283a6",
+        "Home Team": "MIA",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "7ad5a64d-1613-4dfe-bf15-59868304f1de",
+        "Home Team": "DEN",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "ced4e00a-4097-4394-8541-091bd7e86498",
+        "Home Team": "KC",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "046cfa38-25a3-4cd0-aab2-5d3808194cfb",
+        "Home Team": "PHI",
+        "Away Team": "NYG"
+    },
+    {
+        "Week ID": "248dff07-03d6-46d2-a2c1-06d517cef39a",
+        "Week Number": "16",
+        "Game ID": "0fc1e440-e670-4749-9ece-5cdc554fb42a",
+        "Home Team": "SF",
+        "Away Team": "BAL"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "9870e58e-bd39-4d57-a37c-08cfb9dcabbd",
+        "Home Team": "CLE",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "f6f2d1c1-bda0-4ecc-b374-f824118cab58",
+        "Home Team": "DAL",
+        "Away Team": "DET"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "24d215ce-b2b6-440c-88ef-30a6049bf47e",
+        "Home Team": "IND",
+        "Away Team": "LV"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "2cf8bd20-e45b-480b-93da-4d9c1d4423e4",
+        "Home Team": "CHI",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "374e0853-0c0e-4fbe-be9d-46e2b02763cf",
+        "Home Team": "JAC",
+        "Away Team": "CAR"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "58c05e41-a737-40a5-ad3c-d320744588fe",
+        "Home Team": "TB",
+        "Away Team": "NO"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "5b2a209d-3d6a-42c7-8dd3-7a49a59c05b1",
+        "Home Team": "PHI",
+        "Away Team": "ARI"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "6a9c26d1-97bb-4087-9b96-8206fcd0d68f",
+        "Home Team": "WAS",
+        "Away Team": "SF"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "6cbe90f9-4b86-4635-927b-b04f4074d7ec",
+        "Home Team": "NYG",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "8c86168a-dd76-4b4d-b719-1e584922248a",
+        "Home Team": "BUF",
+        "Away Team": "NE"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "8d40574a-5a6c-4520-a343-9e201e70d2a7",
+        "Home Team": "HOU",
+        "Away Team": "TEN"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "e6a8076b-558c-47b1-9e53-f005894bf9af",
+        "Home Team": "BAL",
+        "Away Team": "MIA"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "6f495571-57f9-4125-9b46-7421a38eccd3",
+        "Home Team": "SEA",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "0f0e40a3-a40e-4630-9956-739cd9355569",
+        "Home Team": "KC",
+        "Away Team": "CIN"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "b06fe024-b433-42ed-8b68-69a338edc5ed",
+        "Home Team": "DEN",
+        "Away Team": "LAC"
+    },
+    {
+        "Week ID": "0a5e5dd3-5708-49c4-96d9-e4adf438ba50",
+        "Week Number": "17",
+        "Game ID": "5592c08c-4cb1-49e9-90b0-9b04ace1fbdf",
+        "Home Team": "MIN",
+        "Away Team": "GB"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "07905409-d2cd-420f-885f-20d0c5de4476",
+        "Home Team": "NO",
+        "Away Team": "ATL"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "091ce60b-06f3-4202-9286-9664a47d08be",
+        "Home Team": "TEN",
+        "Away Team": "JAC"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "0cb9edf9-d268-4f1f-be29-10241ab955c6",
+        "Home Team": "DET",
+        "Away Team": "MIN"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "17da17ed-d2af-48ce-98df-fd97e851a677",
+        "Home Team": "ARI",
+        "Away Team": "SEA"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "2001a9fe-f673-49c4-a37f-1c7f9dc8f1ee",
+        "Home Team": "GB",
+        "Away Team": "CHI"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "278b091e-61fb-4bb1-a445-4e267a3ecc3c",
+        "Home Team": "NYG",
+        "Away Team": "PHI"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "72f3d705-9973-4eab-9a5e-4b90201b6004",
+        "Home Team": "NE",
+        "Away Team": "NYJ"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "756d6c29-6376-4953-868c-1218129489c8",
+        "Home Team": "IND",
+        "Away Team": "HOU"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "7885d41f-ea3d-4b7d-898d-11279e6f99ec",
+        "Home Team": "SF",
+        "Away Team": "LA"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "796e79bc-c26f-4a23-b357-17a366cf5e6e",
+        "Home Team": "CAR",
+        "Away Team": "TB"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "7d1dfaee-8c3a-46f3-abbf-f3c8c3967c0d",
+        "Home Team": "LV",
+        "Away Team": "DEN"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "b1dd2898-3bcc-4f34-a3d9-b09225cf0f82",
+        "Home Team": "LAC",
+        "Away Team": "KC"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "b5c5afbb-0eff-4766-b3b6-6a948e27b347",
+        "Home Team": "MIA",
+        "Away Team": "BUF"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "bc2599d4-602b-4040-a072-eeeebc793fac",
+        "Home Team": "WAS",
+        "Away Team": "DAL"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "dc3e4ea6-1f65-4d2f-877b-acc35bda747d",
+        "Home Team": "BAL",
+        "Away Team": "PIT"
+    },
+    {
+        "Week ID": "7723bce4-a683-4152-b95d-42bce6e98d9c",
+        "Week Number": "18",
+        "Game ID": "e26f8d1d-cc69-4d5e-bee1-142649486e66",
+        "Home Team": "CIN",
+        "Away Team": "CLE"
+    }
+]

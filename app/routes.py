@@ -10,8 +10,6 @@ from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from app import app, scheduler
 from app.model import *
-from langchain.document_loaders import WebBaseLoader, JSONLoader
-from langchain.indexes import VectorstoreIndexCreator
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased').eval()
@@ -29,29 +27,15 @@ def quiz():
 
 @app.route('/start_scheduler', methods=['GET'])
 def start_scheduler():
-    scheduler.add_job(id='Fetch NFL Data Job', func=fetch_nfl_data, trigger='interval', minutes=5)
+    scheduler.add_job(id='Fetch NFL Data Job', func=fetch_game_data, trigger='interval', minutes=5)
     return "Scheduler started", 200
-
-
-@app.route('/ask_from_data')
-def ask_from_data():
-    # loader = JSONLoader(
-    #     file_path='app/test_playbyplay/nfl_champ_2022.json',
-    #     jq_schema='.[].Description'
-    # )
-    loader = WebBaseLoader(app.config['SPORTSDATAIO_API_ENDPOINT_PLAYBYPAY'])
-    index = VectorstoreIndexCreator().from_loaders([loader])
-    result = index.query("Give me a play where a player scored a touchdown. Give me player name (first and last), quarter, time left in quarter "
-                         "(MM:SS), team that scored, and what the score was in the game and who was in the lead.")
-    print(result)
-    return render_template('index.html')
 
 
 @app.route('/generate_question', methods=['POST'])
 def generate_question_route():
     data = request.get_json()
     selected_team = data.get("team", "Chicago Bears")  # Default to Chicago Bears if no team is provided
-    question, options, correct_option = generate_question(selected_team)
+    question, options, correct_option = generate_team_history_question(selected_team)
 
     return jsonify({
         "question": question,
@@ -60,48 +44,91 @@ def generate_question_route():
     })
 
 
-def fetch_nfl_data():
+@app.route("/fetch_schedule", methods=["GET"])
+def fetch_schedule():
     try:
-        response = requests.get(app.config['SPORTSDATAIO_API_ENDPOINT_PLAYBYPAY'])
+        response = requests.get(app.config['SPORTSRADAR_API_ENDPOINT_SCHEDULE'])
         response.raise_for_status()
-
         data = response.json()
-        print(type(data))
 
-        # Filtering data for a specific team and extracting only the "Team" and "Description" fields
-        team_to_search_for = "DEN"
-        filtered_data = []
-
-        for play in data['Plays']:
-            if play.get('Team') == team_to_search_for or play.get('Opponent') == team_to_search_for:
-                play_details = {
-                    "Team": play.get('Team'),
-                    "Quarter": play.get('QuarterName'),
-                    "Time Remaining Min": play.get('TimeRemainingMinutes'),
-                    "Time Remaining Sec": play.get('TimeRemainingSeconds'),
-                    "Description": play.get('Description'),
-                    "Type": play.get('Type'),
-                    "Down": play.get('Down'),
-                    "Distance": play.get('Distance'),
-                    "Yards Gained": play.get('YardsGained')
+        parsed_data = []
+        for week in data['weeks']:
+            week_id = week['id']
+            week_title = week['title']
+            for game in week['games']:
+                game_details = {
+                    "Week ID": week_id,
+                    "Week Number": week_title,
+                    "Game ID": game['id'],
+                    "Home Team": game['home']['alias'],
+                    "Away Team": game['away']['alias']
                 }
-                if play.get('IsScoringPlay'):
-                    play_details["Scoring Play"] = play.get('ScoringPlay')
-                filtered_data.append(play_details)
+                parsed_data.append(game_details)
 
-        # Ensure the directory exists, if not, create it
-        directory = 'app/test_playbyplay'
+        directory = 'app/schedule_data'
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        # Save the filtered data in a JSON file inside the directory
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        with open(os.path.join(directory, f'2023_Week2_Test_{timestamp}.json'), 'w') as json_file:
-            json.dump(filtered_data, json_file, indent=4)
+        with open(os.path.join(directory, '2023_NFL_SCHEDULE'), 'w') as json_file:
+            json.dump(parsed_data, json_file, indent=4)
 
         print("Data Fetched and saved successfully")
+        return "Data Fetched and saved successfully", 200
     except requests.exceptions.RequestException as e:
         print(f"Error: {str(e)}")
+        return f"Failed to fetch the data. Error: {str(e)}", 500
+
+
+@app.route("/fetch_game_data/<int:week_number>/<string:team_alias>", methods=["GET"])
+def fetch_game_data(week_number, team_alias):
+    # Step 1: Read the "2023_NFL_SCHEDULE" JSON file to get game ID for the given week and team.
+    with open("app/schedule_data/2023_NFL_SCHEDULE", "r") as json_file:
+        schedule_data = json.load(json_file)
+
+    game_id = None
+    home_team = None
+    away_team = None
+    for game in schedule_data:
+        if game["Week Number"] == str(week_number) and (game["Home Team"] == team_alias or game["Away Team"] == team_alias):
+            game_id = game["Game ID"]
+            home_team = game["Home Team"]
+            away_team = game["Away Team"]
+            break
+
+    if not game_id:
+        return f"No game found for week {week_number} and team {team_alias}", 404
+
+    # Step 2: Use the game ID to get the play-by-play data.
+    play_by_play_url = f"http://api.sportradar.us/nfl/official/trial/v7/en/games/{game_id}/pbp.json?api_key={app.config['SPORTSRADAR_API_KEY']}"
+    response = requests.get(play_by_play_url)
+    response.raise_for_status()
+    game_data = response.json()
+
+    # Organize play-by-play data by quarter
+    organized_data = {}
+    for period in game_data['periods']:
+        quarter = period['number']
+        plays = []
+        for sequence in period['pbp']:
+            if 'events' in sequence:
+                for event in sequence['events']:
+                    if 'clock' in event and 'description' in event:
+                        play_info = {
+                            "timestamp": event['clock'],
+                            "description": event['description']
+                        }
+                        plays.append(play_info)
+        organized_data[f"Quarter {quarter}"] = plays
+
+    # Step 3: Store the fetched play-by-play data in the desired directory format.
+    directory = f'app/game_data'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    with open(os.path.join(directory, f"{away_team}vs{home_team}.json"), 'w') as json_file:
+        json.dump(organized_data, json_file, indent=4)
+
+    return f"Game data fetched and saved for week {week_number}, team {team_alias}", 200
 
 
 def chatgpt_conversation(prompt):
@@ -114,7 +141,7 @@ def chatgpt_conversation(prompt):
     return response["choices"][0]["message"]["content"]
 
 
-def generate_question(team):
+def generate_team_history_question(team):
     global call_count
     global MAX_CALL
 
@@ -123,7 +150,7 @@ def generate_question(team):
             print("Reached Max Call Count: Cannot Generate New Question")
             return None, None, None
 
-        difficulty, chosen_sub_topic = generate_question_topic()
+        difficulty, chosen_sub_topic = generate_history_question_topic()
         print(chosen_sub_topic)
         call_count += 1
         nfl_fact = chatgpt_conversation(
@@ -216,7 +243,7 @@ def db_store(question, options, correct_option, team):
     db.session.commit()
 
 
-def generate_question_topic():
+def generate_history_question_topic():
     difficulty = "medium"
     sub_topics = ["Team History", "Legendary Players", "Championship Seasons", "Coaches and Management",
                   "Stadium and Fan Culture", "Rivalries", "Record Breaking Performances", "Draft Picks",
