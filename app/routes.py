@@ -10,6 +10,7 @@ from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 from app import app, scheduler
 from app.model import *
+from datetime import time
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased').eval()
@@ -176,6 +177,18 @@ def fetch_game_data(week_number, team_alias):
     if not game_id:
         return f"No game found for week {week_number} and team {team_alias}", 404
 
+    # Check if game already exists in the database
+    existing_game = Game.query.filter_by(home_team=home_team, away_team=away_team, week_num=week_number).first()
+
+    if not existing_game:
+        # Create new game entry
+        game_entry = Game(id=game_id, home_team=home_team, away_team=away_team, week_num=week_number)
+        db.session.add(game_entry)
+        db.session.commit()
+
+    else:
+        game_entry = existing_game
+
     # Step 2: Use the game ID to get the play-by-play data.
     play_by_play_url = f"http://api.sportradar.us/nfl/official/trial/v7/en/games/{game_id}/pbp.json?api_key={app.config['SPORTSRADAR_API_KEY']}"
     response = requests.get(play_by_play_url)
@@ -191,22 +204,35 @@ def fetch_game_data(week_number, team_alias):
             if 'events' in sequence:
                 for event in sequence['events']:
                     if 'clock' in event and 'description' in event:
-                        play_info = {
-                            "timestamp": event['clock'],
-                            "description": event['description']
-                        }
-                        plays.append(play_info)
+                        existing_play = Play.query.filter_by(game_id=game_id, quarter=quarter,
+                                                             timestamp=event['clock']).first()
+
+                        if existing_play:
+                            # Update the existing entry
+                            existing_play.description = event['description']
+                        else:
+                            play_info = Play(
+                                game_id=game_id,
+                                play_id=get_next_play_id_for_game(game_id),
+                                week_num=week_number,
+                                quarter=quarter,
+                                timestamp=event['clock'],
+                                description=event['description']
+                            )
+                            db.session.add(play_info)
+
         organized_data[f"Quarter {quarter}"] = plays
+    db.session.commit()  # Commit the changes to the database.
 
-    # Step 3: Store the fetched play-by-play data in the desired directory format.
-    directory = f'app/game_data'
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    return f"Play-by-play data fetched and saved to database for week {week_number}, team {team_alias}", 200
 
-    with open(os.path.join(directory, f"{away_team}vs{home_team}.json"), 'w') as json_file:
-        json.dump(organized_data, json_file, indent=4)
 
-    return f"Game data fetched and saved for week {week_number}, team {team_alias}", 200
+def get_next_play_id_for_game(game_id):
+    last_play = Play.query.filter_by(game_id=game_id).order_by(Play.play_id.desc()).first()
+    if last_play:
+        return last_play.play_id + 1
+    else:
+        return 1
 
 
 def chatgpt_conversation(prompt):
@@ -314,23 +340,22 @@ def generate_team_history_question(team):
     return None, None, None
 
 
-@app.route("/generate_play_by_play_question/<int:week_number>/<string:team_alias>/<int:quarter>", methods=["GET"])
-def generate_play_by_play_question(week_number, team_alias, quarter):
+@app.route("/generate_play_by_play_question/<string:game_id>/<int:quarter>", methods=["GET"])
+def generate_play_by_play_question(game_id, quarter):
     global call_count
     global MAX_CALL
 
-    play_data = get_play_by_play_data(week_number, team_alias)
-    if not play_data:
-        print("Failed to retrieve play data.")
-        return
+    game = Game.query.filter_by(id=game_id).first()
+    if not game:
+        return "Game not found.", 404
 
-    quarter_data = play_data.get(f"Quarter {quarter}", [])
-    if not quarter_data:
-        print(f"No data found for Quarter {quarter}.")
-        return
+    quarter_plays = Play.query.filter_by(game_id=game_id, quarter=quarter).all()
+
+    if not quarter_plays:
+        return f"No data found for Quarter {quarter}.", 404
 
     # Convert quarter data to a readable format for ChatGPT
-    quarter_summary = ". ".join([f"{play['timestamp']} - {play['description']}" for play in quarter_data])
+    quarter_summary = ". ".join([f"{play.timestamp} - {play.description}" for play in quarter_plays])
 
     for _ in range(MAX_CALL):
         if call_count >= MAX_CALL:
@@ -342,7 +367,7 @@ def generate_play_by_play_question(week_number, team_alias, quarter):
             f"Based on the following plays from Quarter {quarter}: \"{quarter_summary}\", generate a unique multiple "
             f"choice quiz question from big plays. Ensure that the question is below 255 characters and each answer is "
             f"no more than 7 words. Provide four options and the correct answer. Please provide as much detail as "
-            f"possible including but not limited to time left in quarter. If know, give full player names as options.")
+            f"possible including but not limited to time left in quarter. If known, give full player names as options.")
 
         question_details = nfl_fact.split('\n')
         print(question_details)
@@ -362,31 +387,6 @@ def generate_play_by_play_question(week_number, team_alias, quarter):
         print(question_details)
         return f"Question Answer Generated", 200
     return None, None, None
-
-
-def get_play_by_play_data(week_number, team_alias):
-    # Read the schedule to determine the game file name
-    with open("app/schedule_data/2023_NFL_SCHEDULE", "r") as json_file:
-        schedule_data = json.load(json_file)
-
-    game_id = None
-    home_team = None
-    away_team = None
-    for game in schedule_data:
-        if game["Week Number"] == str(week_number) and (game["Home Team"] == team_alias or game["Away Team"] == team_alias):
-            game_id = game["Game ID"]
-            home_team = game["Home Team"]
-            away_team = game["Away Team"]
-            break
-
-    if not game_id:
-        return None
-
-    file_path = f'app/game_data/{away_team}vs{home_team}.json'
-    with open(file_path, 'r') as json_file:
-        data = json.load(json_file)
-
-    return data
 
 
 def db_store(question, options, correct_option, team):

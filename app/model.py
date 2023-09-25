@@ -21,7 +21,24 @@ class Question(db.Model):
 
 class Roster(db.Model):
     jerseyNum = db.Column(db.Integer, primary_key=True)
-    team = db.Column(db.String(8), nullable=False, primary_key=True)
+    team = db.Column(db.String(8), primary_key=True)
     fullName = db.Column(db.String(64), nullable=False)
     abbrName = db.Column(db.String(32))
     position = db.Column(db.String(8))
+
+
+class Play(db.Model):
+    play_id = db.Column(db.Integer, primary_key=True)
+    game_id = db.Column(db.String(128), db.ForeignKey('game.id'), primary_key=True, nullable=False)
+    week_num = db.Column(db.Integer, nullable=False)
+    quarter = db.Column(db.Integer, nullable=False)
+    timestamp = db.Column(db.String(5), nullable=False)
+    description = db.Column(db.String(256), nullable=False)
+
+
+class Game(db.Model):
+    id = db.Column(db.String(128), primary_key=True)
+    home_team = db.Column(db.String(8), nullable=False)
+    away_team = db.Column(db.String(8), nullable=False)
+    week_num = db.Column(db.Integer, nullable=False)
+    plays = db.relationship('Play', backref='game', lazy=True)
