@@ -44,6 +44,36 @@ def generate_question_route():
     })
 
 
+@app.route("/fetch_team_data", methods=["GET"])
+def fetch_team_data():
+    try:
+        response = requests.get(app.config['SPORTSRADAR_API_ENDPOINT_TEAM'])
+        response.raise_for_status()
+        data = response.json()
+
+        parsed_data = []
+        for conference in data.get("conferences", []):
+            for division in conference.get("divisions", []):
+                for team in division.get("teams", []):
+                    parsed_data.append({
+                        "id": team.get("id"),
+                        "alias": team.get("alias")
+                    })
+
+        directory = 'app/team_data'
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        with open(os.path.join(directory, '2023_NFL_TEAM_DATA'), 'w') as json_file:
+            json.dump(parsed_data, json_file, indent=4)
+
+        print("Data Fetched and saved successfully")
+        return "Data Fetched and saved successfully", 200
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {str(e)}")
+        return f"Failed to fetch the data. Error: {str(e)}", 500
+
+
 @app.route("/fetch_schedule", methods=["GET"])
 def fetch_schedule():
     try:
@@ -79,60 +109,53 @@ def fetch_schedule():
         return f"Failed to fetch the data. Error: {str(e)}", 500
 
 
-@app.route("/fetch_roster_data/<int:week_number>/<string:team_alias>", methods=["GET"])
-def fetch_roster_data(week_number, team_alias):
+@app.route("/fetch_roster_data/<string:team_alias>", methods=["GET"])
+def fetch_roster_data(team_alias):
     # Step 1: Read the "2023_NFL_SCHEDULE" JSON file to get game ID for the given week and team.
-    with open("app/schedule_data/2023_NFL_SCHEDULE", "r") as json_file:
-        schedule_data = json.load(json_file)
+    with open("app/team_data/2023_NFL_TEAM_DATA", "r") as json_file:
+        team_data = json.load(json_file)
 
-    game_id = None
-    for game in schedule_data:
-        if game["Week Number"] == str(week_number) and (
-                game["Home Team"] == team_alias or game["Away Team"] == team_alias):
-            game_id = game["Game ID"]
+    team_id = None
+    for team in team_data:
+        if team["alias"] == str(team_alias):
+            team_id = team["id"]
             break
 
-    if not game_id:
-        return f"No game found for week {week_number} and team {team_alias}", 404
+    if not team_id:
+        return f"No team found for team {team_alias}", 404
 
-    roster_url = f"http://api.sportradar.us/nfl/official/trial/v7/en/games/{game_id}/roster.json?api_key={app.config['SPORTSRADAR_API_KEY']}"
+    roster_url = f"http://api.sportradar.us/nfl/official/trial/v7/en/teams/{team_id}/full_roster.json?api_key={app.config['SPORTSRADAR_API_KEY']}"
     response = requests.get(roster_url)
     response.raise_for_status()
     roster_data = response.json()
 
-    team_type = None  # This will store either "home" or "away" based on where our team_alias matches
-    if roster_data["home"]["alias"] == team_alias:
-        team_type = "home"
-    elif roster_data["away"]["alias"] == team_alias:
-        team_type = "away"
+    # Step 2: Extract the players from the roster data
+    players = roster_data.get("players", [])
 
-    if not team_type:
-        return f"Team alias {team_alias} not found in the roster data for game {game_id}", 404
+    # Step 3: Filter out players based on their status and add them to the database.
+    for player in players:
+        if player.get("status") == "ACT":
+            roster_entry = Roster.query.filter_by(jerseyNum=player["jersey"], team=team_alias).first()
+            if roster_entry:
+                # Update attributes if the entry exists
+                roster_entry.fullName = player["name"]
+                roster_entry.abbrName = player.get("abbr_name", "")
+                roster_entry.position = player["position"]
+            else:
+                # Create a new entry if it doesn't exist
+                roster_entry = Roster(
+                    jerseyNum=player["jersey"],
+                    team=team_alias,
+                    fullName=player["name"],
+                    abbrName=player.get("abbr_name", ""),
+                    position=player["position"]
+                )
+                db.session.add(roster_entry)
 
-    # Step 3: Extract the roster details for the matched team and filter out players based on their in-game status.
-    active_players = [player for player in roster_data[team_type]["players"] if player["in_game_status"] == "active"]
+    db.session.commit()  # Commit the changes to the database.
 
-    # Step 4: Extract the required fields for each player.
-    extracted_data = []
-    for player in active_players:
-        player_data = {
-            "name": player["name"],
-            "jersey": player["jersey"],
-            "abbr_name": player["abbr_name"],
-            "position": player["position"]
-        }
-        extracted_data.append(player_data)
+    return f"Roster data fetched and saved to database for team {team_alias}", 200
 
-    # Step 3: Store the fetched play-by-play data in the desired directory format.
-    directory = f'app/roster_data'
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-    with open(os.path.join(directory, f"{team_alias}_week{week_number}.json"), 'w') as json_file:
-        json.dump(extracted_data, json_file, indent=4)
-        return f"Roster data fetched and saved for week {week_number}, team {team_alias}", 200
-
-    return None
 
 @app.route("/fetch_game_data/<int:week_number>/<string:team_alias>", methods=["GET"])
 def fetch_game_data(week_number, team_alias):

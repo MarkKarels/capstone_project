@@ -17,3 +17,11 @@ class Question(db.Model):
     answer = db.Column(db.String, nullable=False)
     team = db.Column(db.String, nullable=False)
     date = db.Column(db.String, default=lambda: datetime.now().strftime('%m-%d-%Y'), nullable=False)
+
+
+class Roster(db.Model):
+    jerseyNum = db.Column(db.Integer, primary_key=True)
+    team = db.Column(db.String(8), nullable=False, primary_key=True)
+    fullName = db.Column(db.String(64), nullable=False)
+    abbrName = db.Column(db.String(32))
+    position = db.Column(db.String(8))
