@@ -11,10 +11,10 @@
 <div class="container">
     <h2 id="question">Click the button to generate a question.</h2>
     <ul>
-        <li id="option1"></li>
-        <li id="option2"></li>
-        <li id="option3"></li>
-        <li id="option4"></li>
+        <li class="option" id="option1"></li>
+        <li class="option" id="option2"></li>
+        <li class="option" id="option3"></li>
+        <li class="option" id="option4"></li>
     </ul>
     <p id="correct_option"></p>
 </div>
@@ -81,24 +81,42 @@
         const selectedTeam = document.getElementById('team-select').value;
 
         fetch('/generate_question', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ team: selectedTeam })
-    })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('question').textContent = data.question;
-                document.getElementById('option1').textContent = data.options[0];
-                document.getElementById('option2').textContent = data.options[1];
-                document.getElementById('option3').textContent = data.options[2];
-                document.getElementById('option4').textContent = data.options[3];
-                document.getElementById('correct_option').textContent = "Correct Option: " + data.correct_option;
-            })
-            .catch(error => {
-                console.error('Error fetching question:', error);
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ team: selectedTeam })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('question').textContent = data.question;
+            document.getElementById('option1').textContent = data.options[0];
+            document.getElementById('option2').textContent = data.options[1];
+            document.getElementById('option3').textContent = data.options[2];
+            document.getElementById('option4').textContent = data.options[3];
+
+            // Add event listeners to options
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                // First, remove any existing classes from previous questions
+                option.classList.remove('correct', 'incorrect');
+
+                option.addEventListener('click', function() {
+                    const correctOptionIndex = data.options.indexOf(data.correct_option);
+                    if (index === correctOptionIndex) {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        options[correctOptionIndex].classList.add('correct');
+                    }
+                    // Disable further clicks after an option is selected
+                    options.forEach(opt => opt.removeEventListener('click', arguments.callee));
+                });
             });
+        })
+        .catch(error => {
+            console.error('Error fetching question:', error);
+        });
     });
 </script>
 </body>

@@ -77,3 +77,11 @@ p {
     border-color: #007BFF;       /* Change the border color on hover for an interactive effect */
 }
 
+.correct {
+    background-color: green;
+}
+
+.incorrect {
+    background-color: red;
+}
+
