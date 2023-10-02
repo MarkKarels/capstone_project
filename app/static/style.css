@@ -55,6 +55,7 @@ li {
 }
 
 li:hover {
+    cursor: pointer;
     background-color: #D0D0D0;
 }
 
@@ -75,5 +76,13 @@ p {
 
 #team-select:hover {
     border-color: #007BFF;       /* Change the border color on hover for an interactive effect */
+}
+
+.correct, .correct:hover {
+    background-color: green;
+}
+
+.incorrect, .incorrect:hover{
+    background-color: red;
 }
 
