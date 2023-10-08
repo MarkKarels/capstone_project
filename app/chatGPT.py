@@ -35,10 +35,10 @@ def chatgpt_prompt(question_type, quarter, quarter_summary, team):
         prompt = chatgpt_conversation(
             f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
             f"{chosen_sub_topic}. Ensure that the question is below 255 characters and each answer is no more than "
-            f"7 words. The options provided should be contextually relevant to the question; for example, if asking "
-            f"about a defensive record like interceptions, only list players known for playing in defensive positions. "
-            f"Avoid opinion/subjective questions and answers, and stick strictly to factual information. You must "
-            f"provide four options and the correct answer.")
+            f"7 words. The format of the response should be question \n option1 \n option2 \n option3 \n option4 \n "
+            f"answer. do not provide anything else in the response to distinguish what each line represents, only the "
+            f"requested information. You must provide a question, 4 options, and an answer.")
+        print(prompt)
         return prompt
     if question_type == 'pbp_current':
         prompt = chatgpt_conversation(
@@ -78,7 +78,6 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
 
         call_count += 1
         question_details = nfl_fact.split('\n')
-        print(question_details)
         unwanted_strings = {
             '',
             'Correct Answer:',
