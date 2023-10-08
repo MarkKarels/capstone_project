@@ -9,6 +9,7 @@ from app.model import Roster, Game, Question
 @app.route('/')
 def quiz():
     start_scheduler()
+    fetchdata.fetch_all_game_data_for_season()
     return render_template('index.html')
 
 

@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from sqlalchemy import or_
 
 from app import app
 from app.model import *
@@ -116,38 +117,26 @@ def fetch_roster_data(team_alias):
     print(f"Roster data fetched and saved to database for team {team_alias}")
 
 
-def fetch_game_data(week_number, team_alias):
-    # Step 1: Read the "2023_NFL_SCHEDULE" JSON file to get game ID for the given week and team.
+def fetch_all_game_data_for_season():
+    """Fetch game data for the entire season."""
+    # Load the schedule data from the 2023_NFL_SCHEDULE JSON file
     with open("app/schedule_data/2023_NFL_SCHEDULE", "r") as json_file:
         schedule_data = json.load(json_file)
 
-    game_id = None
-    home_team = None
-    away_team = None
-    for game in schedule_data:
-        if game["Week Number"] == str(week_number) and (
-                game["Home Team"] == team_alias or game["Away Team"] == team_alias):
-            game_id = game["Game ID"]
-            home_team = game["Home Team"]
-            away_team = game["Away Team"]
-            break
+    for key in team_mapping:
+        for game in schedule_data:
+            if (game["Home Team"] == key and
+                    not db.session.query(db.exists().where(Game.id == game["Game ID"])).scalar()):
+                game_entry = Game(id=game["Game ID"], home_team=game["Home Team"], away_team=game["Away Team"],
+                                  week_num=game["Week Number"])
+                db.session.add(game_entry)
+    db.session.commit()
 
-    if not game_id:
-        return f"No game found for week {week_number} and team {team_alias}", 404
 
-    # Check if game already exists in the database
-    existing_game = Game.query.filter_by(home_team=home_team, away_team=away_team, week_num=week_number).first()
+def fetch_game_data(week_number, team_alias):
+    game_id = db.session.query(Game.id).filter(or_(Game.home_team == team_alias, Game.away_team == team_alias),
+                                               Game.week_num == week_number).first()
 
-    if not existing_game:
-        # Create new game entry
-        game_entry = Game(id=game_id, home_team=home_team, away_team=away_team, week_num=week_number)
-        db.session.add(game_entry)
-        db.session.commit()
-
-    else:
-        game_entry = existing_game
-
-    # Step 2: Use the game ID to get the play-by-play data.
     play_by_play_url = f"http://api.sportradar.us/nfl/official/trial/v7/en/games/{game_id}/pbp.json?api_key={app.config['SPORTSRADAR_API_KEY']}"
     response = requests.get(play_by_play_url)
     response.raise_for_status()

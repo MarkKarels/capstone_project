@@ -19,6 +19,14 @@ class Question(db.Model):
     date = db.Column(db.String, default=lambda: datetime.now().strftime('%m-%d-%Y'), nullable=False)
 
 
+class Vague(db.Model):
+    id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
+    question = db.Column(db.String(512), nullable=False)
+    answer = db.Column(db.String, nullable=False)
+    team = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, default=lambda: datetime.now().strftime('%m-%d-%Y'), nullable=False)
+
+
 class Roster(db.Model):
     jerseyNum = db.Column(db.Integer, primary_key=True)
     team = db.Column(db.String(8), primary_key=True)

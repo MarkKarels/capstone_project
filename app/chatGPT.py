@@ -16,6 +16,18 @@ MAX_CALL = 100
 call_count = 0
 
 
+def is_question_vague(question, team, answer):
+    response = chatgpt_conversation('Yes or No, is this question vague (as in having more than one possible answer)? '
+                                    + question)
+
+    if response == 'No':
+        print('Question Is Unique')
+    else:
+        row = Vague(question=question, answer=answer, team=team)
+        db.session.add(row)
+        db.session.commit()
+
+
 def chatgpt_prompt(question_type, quarter, quarter_summary, team):
     if question_type == 'history':
         difficulty, chosen_sub_topic = generate_history_question_topic()
@@ -25,8 +37,8 @@ def chatgpt_prompt(question_type, quarter, quarter_summary, team):
             f"{chosen_sub_topic}. Ensure that the question is below 255 characters and each answer is no more than "
             f"7 words. The options provided should be contextually relevant to the question; for example, if asking "
             f"about a defensive record like interceptions, only list players known for playing in defensive positions. "
-            f"Avoid opinion/subjective questions and answers, and stick strictly to factual information. Provide four "
-            f"options and the correct answer.")
+            f"Avoid opinion/subjective questions and answers, and stick strictly to factual information. You must "
+            f"provide four options and the correct answer.")
         return prompt
     if question_type == 'pbp_current':
         prompt = chatgpt_conversation(
@@ -106,6 +118,8 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
                 correct_option = question_details[5]
             print(correct_option)
 
+            is_question_vague(question, team, correct_option)
+
             # Return None if any of the options couldn't be parsed correctly
             if None in options:
                 print('None Escape')
@@ -124,7 +138,7 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
                     if correct_option == q_answer:
                         is_similar = True
                         print('Question relates to another question in the db with the same answer.')
-                        break
+                        create_question_from_chatgpt(question_type, quarter, quarter_summary, team)
                     else:
                         # If answers are different, we can continue looking or decide on other logic
                         continue
