@@ -1,14 +1,14 @@
 from flask import render_template, jsonify, request
 from sqlalchemy import func
+import requests
 
 from app import app, scheduler, chatGPT, fetchdata
-import requests
+from datetime import date
 from app.model import Roster, Game, Question
 
 
 @app.route('/')
 def quiz():
-    start_scheduler()
     fetchdata.fetch_all_game_data_for_season()
     return render_template('index.html')
 
@@ -20,6 +20,21 @@ def generate_question_route():
     team_alias = fetchdata.get_team_alias(selected_team)
 
     question_count = Question.query.filter_by(team=selected_team).count()
+    roster_exists = Roster.query.filter_by(team=team_alias).first()
+    if not roster_exists:
+        fetchdata.fetch_roster_data(team_alias)
+    today = str(date.today())
+    for key, value in season2023.items():
+        if today >= key:
+            try:
+                fetchdata.fetch_game_data(value, team_alias)
+            except requests.exceptions.HTTPError as err:
+                if err.response.status_code == 403:
+                    print(f"HTTP 403 error encountered for week {value} and team {team_alias}. Exiting loop.")
+                    break
+                else:
+                    print(
+                        f"HTTP error occurred for week {value} and team {team_alias}: {err}")
 
     if question_count > 5:
         existing_question = Question.query.filter_by(team=selected_team).order_by(func.random()).first()
@@ -29,26 +44,13 @@ def generate_question_route():
         correct_option = existing_question.answer
 
     else:
-        for week in range(1, 19):
-            roster_exists = Roster.query.filter_by(team=team_alias).first()
-            if not roster_exists:
-                fetchdata.fetch_roster_data(team_alias)
-
-            game_exists = (Game.query.filter((Game.home_team == team_alias) | (Game.away_team == team_alias)).filter_by
-                           (week_num=week).first())
-            if not game_exists:
-                try:
-                    fetchdata.fetch_game_data(week, team_alias)
-                except requests.exceptions.HTTPError as err:
-                    if err.response.status_code == 403:
-                        print(f"HTTP 403 error encountered for week {week} and team {team_alias}. Exiting loop.")
-                        break
-                    else:
-                        print(
-                            f"HTTP error occurred for week {week} and team {team_alias}: {err}")
-        question, options, correct_option = chatGPT.create_question_from_chatgpt('history', None,
-                                                                                 None, selected_team)
-        generate_question_route()
+        for i in range(5):
+            chatGPT.create_question_from_chatgpt('history', None,None, selected_team)
+        existing_question = Question.query.filter_by(team=selected_team).order_by(func.random()).first()
+        question = existing_question.question
+        options = [existing_question.option1, existing_question.option2, existing_question.option3,
+                   existing_question.option4]
+        correct_option = existing_question.answer
 
     return jsonify({
         "question": question,
@@ -61,3 +63,25 @@ def start_scheduler():
     scheduler.add_job(id='Fetch NFL Data Job', func=fetchdata.fetch_game_data, args=[4, 'Chicago Bears'],
                       trigger='interval', minutes=5)
     return "Scheduler started", 200
+
+
+season2023 = {
+    '2023-09-11': 1,
+    '2023-09-18': 2,
+    '2023-09-25': 3,
+    '2023-10-02': 4,
+    '2023-10-09': 5,
+    '2023-10-16': 6,
+    '2023-10-23': 7,
+    '2023-10-30': 8,
+    '2023-11-06': 9,
+    '2023-11-13': 10,
+    '2023-11-20': 11,
+    '2023-11-27': 12,
+    '2023-12-04': 13,
+    '2023-12-11': 14,
+    '2023-12-18': 15,
+    '2023-12-25': 16,
+    '2024-01-01': 17,
+    '2024-01-11': 18
+}

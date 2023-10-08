@@ -16,16 +16,21 @@ MAX_CALL = 100
 call_count = 0
 
 
-def is_question_vague(question, team, answer):
-    response = chatgpt_conversation('Yes or No, is this question vague (as in having more than one possible answer)? '
+def is_question_definitive(question, team, answer):
+    response = chatgpt_conversation('Yes or No? Does the following question have a single, definitive answer? '
                                     + question)
 
-    if response == 'No':
-        print('Question Is Unique')
+    if response == 'Yes' or response == 'yes':
+        print(question + ': This Question Is Unique')
+        return True
     else:
-        row = Vague(question=question, answer=answer, team=team)
-        db.session.add(row)
-        db.session.commit()
+        # Check if the question already exists in the Vague table
+        existing_vague_question = Vague.query.filter_by(question=question).first()
+        if not existing_vague_question:
+            row = Vague(question=question, answer=answer, team=team)
+            db.session.add(row)
+            db.session.commit()
+        return False
 
 
 def chatgpt_prompt(question_type, quarter, quarter_summary, team):
@@ -55,7 +60,7 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
     global MAX_CALL
     global nfl_fact
 
-    if game_id:
+    if game_id is not None:
         game = Game.query.filter_by(id=game_id).first()
         if not game:
             return "Game not found.", 404
@@ -74,50 +79,20 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
     for _ in range(MAX_CALL):
         if call_count >= MAX_CALL:
             print("Reached Max Call Count: Cannot Generate New Question")
-            return None, None, None
 
         call_count += 1
         question_details = nfl_fact.split('\n')
-        unwanted_strings = {
-            '',
-            'Correct Answer:',
-            'Correct Answer: ',
-            'Answer:',
-            'Options:',
-            'Options: ',
-            'Question:',
-            'Question: '
-        }
 
-        question_details = [x for x in question_details if x not in unwanted_strings]
-
-        print(question_details)
         if len(question_details) <= 5:
             print('Length Escape')
             continue
 
         try:
-            if ':' in question_details[0]:
-                question = question_details[0].split(':', 1)[1].strip()
-            else:
-                question = question_details[0]
-            print(question)
-            options = [
-                option.split(')')[1].strip() if ')' in option else
-                option.split('.')[1].strip() if '.' in option else
-                option
-                for option in question_details[1:5]
-            ]
-            print(options)
-            if ')' in question_details[5]:
-                correct_option = question_details[5].split(')')[1].strip()
-            elif '.' in question_details[5]:
-                correct_option = question_details[5].split('.')[1].strip()
-            else:
-                correct_option = question_details[5]
-            print(correct_option)
+            question = question_details[0]
+            options = [option for option in question_details[1:5]]
+            correct_option = question_details[5]
 
-            is_question_vague(question, team, correct_option)
+            definitive = is_question_definitive(question, team, correct_option)
 
             # Return None if any of the options couldn't be parsed correctly
             if None in options:
@@ -131,30 +106,24 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
             is_similar = False
 
             for q_text, q_answer in existing_questions_for_team:
-                # Check for similarity
                 if bert_similarity(question, q_text) > 0.90:
-                    # If questions are similar, check if answers are also the same
                     if correct_option == q_answer:
                         is_similar = True
-                        print('Question relates to another question in the db with the same answer.')
-                        create_question_from_chatgpt(question_type, quarter, quarter_summary, team)
                     else:
-                        # If answers are different, we can continue looking or decide on other logic
                         continue
 
-            if not is_similar:
+            if not is_similar and definitive:
                 row = Question(question=question, option1=options[0], option2=options[1], option3=options[2],
                                option4=options[3],
                                answer=correct_option, team=team)
                 db.session.add(row)
                 db.session.commit()
-                return question, options, correct_option
+                break
+            else:
+                break
 
         except Exception as e:
             print(f"An error occurred: {e}")
-
-    print('End of the line')
-    return None, None, None
 
 
 def chatgpt_conversation(prompt):
