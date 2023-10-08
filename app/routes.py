@@ -20,9 +20,11 @@ def generate_question_route():
     team_alias = fetchdata.get_team_alias(selected_team)
 
     question_count = Question.query.filter_by(team=selected_team).count()
+    print(question_count)
     roster_exists = Roster.query.filter_by(team=team_alias).first()
     if not roster_exists:
         fetchdata.fetch_roster_data(team_alias)
+
     today = str(date.today())
     for key, value in season2023.items():
         if today >= key:

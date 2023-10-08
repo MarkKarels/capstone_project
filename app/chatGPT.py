@@ -24,12 +24,41 @@ def is_question_definitive(question, team, answer):
         print(question + ': This Question Is Unique')
         return True
     else:
-        # Check if the question already exists in the Vague table
         existing_vague_question = Vague.query.filter_by(question=question).first()
         if not existing_vague_question:
             row = Vague(question=question, answer=answer, team=team)
             db.session.add(row)
             db.session.commit()
+            print('Question added to the vague table')
+        return False
+
+
+def ask_again(question):
+    reword_question = chatgpt_conversation(
+        f"Can you turn this into a question with only one possible answer?" + question
+        + f" Ensure that the question is below 255 characters and each answer is no more than "
+        f"7 words. The format of the response should be question \n option1 \n option2 \n option3 \n option4 \n "
+        f"answer. do not provide anything else in the response to distinguish what each line represents, only the "
+        f"requested information. You must provide a question, 4 options, and an answer.")
+    question_details = reword_question.split('\n')
+    question = question_details[0].strip()
+    options = [option.strip() for option in question_details[1:5]]
+    correct_option = question_details[5].strip()
+    return question, options, correct_option
+
+
+def is_answer_correct(question, answer, team):
+    verify_response = chatgpt_conversation('Yes or No? Is the answer to ' + question + answer)
+    if verify_response == 'Yes' or verify_response == 'yes':
+        print(question + ': This Answer Has Been Verified')
+        return True
+    else:
+        existing_accuracy_question = Accuracy.query.filter_by(question=question).first()
+        if not existing_accuracy_question:
+            row = Accuracy(question=question, answer=answer, team=team)
+            db.session.add(row)
+            db.session.commit()
+            print('Question added to the accuracy table')
         return False
 
 
@@ -88,18 +117,20 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
             continue
 
         try:
-            question = question_details[0]
-            options = [option for option in question_details[1:5]]
-            correct_option = question_details[5]
+            question = question_details[0].strip()
+            options = [option.strip() for option in question_details[1:5]]
+            correct_option = question_details[5].strip()
+
+            correct = is_answer_correct(question, correct_option, team)
 
             definitive = is_question_definitive(question, team, correct_option)
+            if not definitive:
+                question, options, correct_option = ask_again(question)
 
-            # Return None if any of the options couldn't be parsed correctly
             if None in options:
                 print('None Escape')
                 continue
 
-            # Fetch both question and answer attributes
             existing_questions_for_team = Question.query.filter_by(team=team).with_entities(Question.question,
                                                                                             Question.answer).all()
 
@@ -112,7 +143,7 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
                     else:
                         continue
 
-            if not is_similar and definitive:
+            if not is_similar and definitive and correct:
                 row = Question(question=question, option1=options[0], option2=options[1], option3=options[2],
                                option4=options[3],
                                answer=correct_option, team=team)

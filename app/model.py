@@ -20,7 +20,15 @@ class Question(db.Model):
 
 
 class Vague(db.Model):
-    id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    question = db.Column(db.String(512), nullable=False)
+    answer = db.Column(db.String, nullable=False)
+    team = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, default=lambda: datetime.now().strftime('%m-%d-%Y'), nullable=False)
+
+
+class Accuracy(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     question = db.Column(db.String(512), nullable=False)
     answer = db.Column(db.String, nullable=False)
     team = db.Column(db.String, nullable=False)
