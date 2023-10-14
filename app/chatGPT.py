@@ -48,7 +48,7 @@ def ask_again(question):
 
 
 def is_answer_correct(question, answer, team):
-    verify_response = chatgpt_conversation('Yes or No? Is the answer to ' + question + answer)
+    verify_response = chatgpt_conversation('Yes or No? Is the answer to ' + question + 'Answer: ' + answer)
     if verify_response == 'Yes' or verify_response == 'yes':
         print(question + ': This Answer Has Been Verified')
         return True
