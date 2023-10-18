@@ -14,6 +14,7 @@ openai.api_key = app.config['OPENAI_API_KEY']
 MODEL_ID = 'gpt-4'
 MAX_CALL = 100
 call_count = 0
+topic = ''
 
 
 def is_question_definitive(question, team, answer):
@@ -26,7 +27,7 @@ def is_question_definitive(question, team, answer):
     else:
         existing_vague_question = Vague.query.filter_by(question=question).first()
         if not existing_vague_question:
-            row = Vague(question=question, answer=answer, team=team)
+            row = Vague(question=question, answer=answer, team=team, topic=topic)
             db.session.add(row)
             db.session.commit()
             print(question + ': Question added to the vague table')
@@ -55,7 +56,7 @@ def is_answer_correct(question, answer, team):
     else:
         existing_accuracy_question = Accuracy.query.filter_by(question=question).first()
         if not existing_accuracy_question:
-            row = Accuracy(question=question, answer=answer, team=team)
+            row = Accuracy(question=question, answer=answer, team=team, topic=topic)
             db.session.add(row)
             db.session.commit()
             print('Question added to the accuracy table')
@@ -63,8 +64,11 @@ def is_answer_correct(question, answer, team):
 
 
 def chatgpt_prompt(question_type, quarter, quarter_summary, team):
+    global topic
+
     if question_type == 'history':
         difficulty, chosen_sub_topic = generate_history_question_topic()
+        topic = chosen_sub_topic
         print(chosen_sub_topic)
         prompt = chatgpt_conversation(
             f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
@@ -176,10 +180,32 @@ def chatgpt_conversation(prompt):
 
 def generate_history_question_topic():
     difficulty = "medium"
-    sub_topics = ["Team History", "Legendary Players", "Championship Seasons", "Coaches and Management",
-                  "Stadium and Fan Culture", "Rivalries", "Record Breaking Performances", "Draft Picks",
-                  "Current Charity Organizations", "Individual player awards", "Tactics and Play-style",
-                  "Founding Facts", "Previous Team Names", "Legendary Teams", "Stadium Facts"]
+    sub_topics = [
+        "Team History",
+        "Legendary Players",
+        "Championship Seasons",
+        "Coaches and Management",
+        "Stadium and Fan Culture",
+        "Rivalries",
+        "Record Breaking Performances",
+        "Draft Picks",
+        "Current Charity Organizations",
+        "Individual player awards",
+        "Founding Facts",
+        "Previous Team Names",
+        "Legendary Teams",
+        "Stadium Facts",
+        "Hall of Fame Inductees",
+        "Memorable Playoff Games",
+        "Team Scandals and Controversies",
+        "Franchise Records",
+        "Community Engagement",
+        "Notable Trades and Acquisitions",
+        "Behind-the-Scenes Personnel",
+        "Media Coverage and Team Perception",
+        "Fan Traditions",
+        "Retired Jerseys and Team Honors"
+    ]
     chosen_sub_topic = random.choice(sub_topics)
 
     return difficulty, chosen_sub_topic

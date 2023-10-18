@@ -24,6 +24,7 @@ class Vague(db.Model):
     question = db.Column(db.String(512), nullable=False)
     answer = db.Column(db.String, nullable=False)
     team = db.Column(db.String, nullable=False)
+    topic = db.Column(db.String, nullable=False)
     date = db.Column(db.String, default=lambda: datetime.now().strftime('%m-%d-%Y'), nullable=False)
 
 
@@ -32,6 +33,7 @@ class Accuracy(db.Model):
     question = db.Column(db.String(512), nullable=False)
     answer = db.Column(db.String, nullable=False)
     team = db.Column(db.String, nullable=False)
+    topic = db.Column(db.String, nullable=False)
     date = db.Column(db.String, default=lambda: datetime.now().strftime('%m-%d-%Y'), nullable=False)
 
 
