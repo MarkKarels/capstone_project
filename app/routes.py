@@ -65,7 +65,7 @@ def generate_question_route():
 @app.route('/fill_question_bank', methods=['POST'])
 def fill_question_bank():
     try:
-        for i in range(20):
+        for i in range(500):
             selected_team = random.choice(teams)
             chatGPT.create_question_from_chatgpt('history', None, None, selected_team)
         return jsonify({'message': 'Question bank filled successfully'}), 200

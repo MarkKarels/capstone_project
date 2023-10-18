@@ -9,7 +9,7 @@ def generate_uuid():
 
 class Question(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    count = db.Column(db.Integer, autoincrement=True)
+    counter = db.Column(db.Integer, nullable=False)
     question = db.Column(db.String(512), unique=True, nullable=False)
     option1 = db.Column(db.String, nullable=False)
     option2 = db.Column(db.String, nullable=False)

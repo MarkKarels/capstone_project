@@ -70,6 +70,7 @@ def chatgpt_prompt(question_type, quarter, quarter_summary, team):
         difficulty, chosen_sub_topic = generate_history_question_topic()
         topic = chosen_sub_topic
         print(chosen_sub_topic)
+        # See if the prompt can change to only ask definitive questions
         prompt = chatgpt_conversation(
             f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
             f"{chosen_sub_topic}. Ensure that the question is below 255 characters and each answer is no more than "
@@ -155,11 +156,12 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
                         continue
 
             if not is_similar and definitive and correct:
-                row = Question(question=question, option1=options[0], option2=options[1], option3=options[2],
-                               option4=options[3],
-                               answer=correct_option, team=team)
+                row = Question(question=question, counter=get_next_question_id_for_game(), option1=options[0],
+                               option2=options[1], option3=options[2], option4=options[3], answer=correct_option,
+                               team=team)
                 db.session.add(row)
                 db.session.commit()
+                MAX_CALL = 0
                 break
             else:
                 break
@@ -222,3 +224,11 @@ def bert_similarity(sent1, sent2):
     emb1 = get_bert_embedding(sent1)
     emb2 = get_bert_embedding(sent2)
     return cosine_similarity([emb1], [emb2])[0][0]
+
+
+def get_next_question_id_for_game():
+    last_question = Question.query.order_by(Question.counter.desc()).first()
+    if last_question:
+        return last_question.counter + 1
+    else:
+        return 1
