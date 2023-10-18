@@ -29,7 +29,7 @@ def is_question_definitive(question, team, answer):
             row = Vague(question=question, answer=answer, team=team)
             db.session.add(row)
             db.session.commit()
-            print('Question added to the vague table')
+            print(question + ': Question added to the vague table')
         return False
 
 
@@ -117,15 +117,22 @@ def create_question_from_chatgpt(question_type, game_id, quarter, team):
             continue
 
         try:
+            count = 0
             question = question_details[0].strip()
             options = [option.strip() for option in question_details[1:5]]
             correct_option = question_details[5].strip()
 
-            correct = is_answer_correct(question, correct_option, team)
-
             definitive = is_question_definitive(question, team, correct_option)
-            if not definitive:
+            while not definitive and count < 5:
                 question, options, correct_option = ask_again(question)
+                count += 1
+                definitive = is_question_definitive(question, team, correct_option)
+
+            if count >= 5:
+                print('Not Definitive Escape')
+                break
+
+            correct = is_answer_correct(question, correct_option, team)
 
             if None in options:
                 print('None Escape')

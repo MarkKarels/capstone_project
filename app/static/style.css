@@ -86,3 +86,21 @@ p {
     background-color: red;
 }
 
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 16px;
+    border-radius: 4px;
+    z-index: 9999;
+}
+
+.vanish {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+

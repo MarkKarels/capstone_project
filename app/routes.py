@@ -1,6 +1,7 @@
 from flask import render_template, jsonify, request
 from sqlalchemy import func
 import requests
+import random
 
 from app import app, scheduler, chatGPT, fetchdata
 from datetime import date
@@ -61,6 +62,17 @@ def generate_question_route():
     })
 
 
+@app.route('/fill_question_bank', methods=['POST'])
+def fill_question_bank():
+    try:
+        for i in range(10):
+            selected_team = random.choice(teams)
+            chatGPT.create_question_from_chatgpt('history', None, None, selected_team)
+        return jsonify({'message': 'Question bank filled successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 def start_scheduler():
     scheduler.add_job(id='Fetch NFL Data Job', func=fetchdata.fetch_game_data, args=[4, 'Chicago Bears'],
                       trigger='interval', minutes=5)
@@ -87,3 +99,38 @@ season2023 = {
     '2024-01-01': 17,
     '2024-01-11': 18
 }
+
+teams = [
+    'Arizona Cardinals',
+    'Los Angeles Rams',
+    'San Francisco 49ers',
+    'Seattle Seahawks',
+    'Tampa Bay Buccaneers',
+    'New Orleans Saints',
+    'Carolina Panthers',
+    'Atlanta Falcons',
+    'Dallas Cowboys',
+    'New York Giants',
+    'Philadelphia Eagles',
+    'Washington Football Team',
+    'Chicago Bears',
+    'Green Bay Packers',
+    'Detroit Lions',
+    'Minnesota Vikings',
+    'Kansas City Chiefs',
+    'Las Angeles Chargers',
+    'Las Vegas Raiders',
+    'Denver Broncos',
+    'Houston Texans',
+    'Indianapolis Colts',
+    'Jacksonville Jaguars',
+    'Tennessee Titans',
+    'New England Patriots',
+    'New York Jets',
+    'Miami Dolphins',
+    'Buffalo Bills',
+    'Pittsburgh Steelers',
+    'Baltimore Ravens',
+    'Cleveland Browns',
+    'Cincinnati Bengals'
+]
