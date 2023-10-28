@@ -1,186 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-
+{% extends 'layout.html' %} {% block content %}
 <div class="container">
-    <h2 id="question">Click the button to generate a question.</h2>
-    <ul>
-        <li class="option" id="option1"></li>
-        <li class="option" id="option2"></li>
-        <li class="option" id="option3"></li>
-        <li class="option" id="option4"></li>
-    </ul>
-    <p id="correct_option"></p>
+	<h2 id="question">Click the button to generate a question.</h2>
+	<ul>
+		<li class="option" id="option1"></li>
+		<li class="option" id="option2"></li>
+		<li class="option" id="option3"></li>
+		<li class="option" id="option4"></li>
+	</ul>
+	<p id="correct_option"></p>
 </div>
 <div class="container">
-    <h2>Select a Team:</h2>
-    <label for="team-select"></label><select id="team-select">
-        <option disabled>--- NFC ---</option>
-        <optgroup label="NFC North">
-            <option value="Chicago Bears">Chicago Bears</option>
-            <option value="Detroit Lions">Detroit Lions</option>
-            <option value="Green Bay Packers">Green Bay Packers</option>
-            <option value="Minnesota Vikings">Minnesota Vikings</option>
-        </optgroup>
-        <optgroup label="NFC West">
-            <option value="Arizona Cardinals">Arizona Cardinals</option>
-            <option value="Los Angeles Rams">Los Angeles Rams</option>
-            <option value="San Francisco 49ers">San Francisco 49ers</option>
-            <option value="Seattle Seahawks">Seattle Seahawks</option>
-        </optgroup>
-        <optgroup label="NFC South">
-            <option value="Atlanta Falcons">Atlanta Falcons</option>
-            <option value="Carolina Panthers">Carolina Panthers</option>
-            <option value="New Orleans Saints">New Orleans Saints</option>
-            <option value="Tampa Bay Buccaneers">Tampa Bay Buccaneers</option>
-        </optgroup>
-        <optgroup label="NFC East">
-            <option value="Dallas Cowboys">Dallas Cowboys</option>
-            <option value="New York Giants">New York Giants</option>
-            <option value="Philadelphia Eagles">Philadelphia Eagles</option>
-            <option value="Washington Commanders">Washington Commanders</option>
-        </optgroup>
-    <option disabled>--- AFC ---</option>
-        <optgroup label="AFC North">
-            <option value="Baltimore Ravens">Baltimore Ravens</option>
-            <option value="Cincinnati Bengals">Cincinnati Bengals</option>
-            <option value="Cleveland Browns">Cleveland Browns</option>
-            <option value="Pittsburgh Steelers">Pittsburgh Steelers</option>
-        </optgroup>
-        <optgroup label="AFC West">
-            <option value="Denver Broncos">Denver Broncos</option>
-            <option value="Kansas City Chiefs">Kansas City Chiefs</option>
-            <option value="Las Vegas Raiders">Las Vegas Raiders</option>
-            <option value="Los Angeles Chargers">Los Angeles Chargers</option>
-        </optgroup>
-        <optgroup label="AFC South">
-            <option value="Houston Texans">Houston Texans</option>
-            <option value="Indianapolis Colts">Indianapolis Colts</option>
-            <option value="Jacksonville Jaguars">Jacksonville Jaguars</option>
-            <option value="Tennessee Titans">Tennessee Titans</option>
-        </optgroup>
-        <optgroup label="AFC East">
-            <option value="Buffalo Bills">Buffalo Bills</option>
-            <option value="Miami Dolphins">Miami Dolphins</option>
-            <option value="New England Patriots">New England Patriots</option>
-            <option value="New York Jets">New York Jets</option>
-        </optgroup>
-    </select>
+	<h2>Select a Team:</h2>
+	<label for="team-select"></label
+	><select id="team-select">
+		<option disabled>--- NFC ---</option>
+		<optgroup label="NFC North">
+			<option value="Chicago Bears">Chicago Bears</option>
+			<option value="Detroit Lions">Detroit Lions</option>
+			<option value="Green Bay Packers">Green Bay Packers</option>
+			<option value="Minnesota Vikings">Minnesota Vikings</option>
+		</optgroup>
+		<optgroup label="NFC West">
+			<option value="Arizona Cardinals">Arizona Cardinals</option>
+			<option value="Los Angeles Rams">Los Angeles Rams</option>
+			<option value="San Francisco 49ers">San Francisco 49ers</option>
+			<option value="Seattle Seahawks">Seattle Seahawks</option>
+		</optgroup>
+		<optgroup label="NFC South">
+			<option value="Atlanta Falcons">Atlanta Falcons</option>
+			<option value="Carolina Panthers">Carolina Panthers</option>
+			<option value="New Orleans Saints">New Orleans Saints</option>
+			<option value="Tampa Bay Buccaneers">Tampa Bay Buccaneers</option>
+		</optgroup>
+		<optgroup label="NFC East">
+			<option value="Dallas Cowboys">Dallas Cowboys</option>
+			<option value="New York Giants">New York Giants</option>
+			<option value="Philadelphia Eagles">Philadelphia Eagles</option>
+			<option value="Washington Commanders">Washington Commanders</option>
+		</optgroup>
+		<option disabled>--- AFC ---</option>
+		<optgroup label="AFC North">
+			<option value="Baltimore Ravens">Baltimore Ravens</option>
+			<option value="Cincinnati Bengals">Cincinnati Bengals</option>
+			<option value="Cleveland Browns">Cleveland Browns</option>
+			<option value="Pittsburgh Steelers">Pittsburgh Steelers</option>
+		</optgroup>
+		<optgroup label="AFC West">
+			<option value="Denver Broncos">Denver Broncos</option>
+			<option value="Kansas City Chiefs">Kansas City Chiefs</option>
+			<option value="Las Vegas Raiders">Las Vegas Raiders</option>
+			<option value="Los Angeles Chargers">Los Angeles Chargers</option>
+		</optgroup>
+		<optgroup label="AFC South">
+			<option value="Houston Texans">Houston Texans</option>
+			<option value="Indianapolis Colts">Indianapolis Colts</option>
+			<option value="Jacksonville Jaguars">Jacksonville Jaguars</option>
+			<option value="Tennessee Titans">Tennessee Titans</option>
+		</optgroup>
+		<optgroup label="AFC East">
+			<option value="Buffalo Bills">Buffalo Bills</option>
+			<option value="Miami Dolphins">Miami Dolphins</option>
+			<option value="New England Patriots">New England Patriots</option>
+			<option value="New York Jets">New York Jets</option>
+		</optgroup>
+	</select>
 </div>
 
 <button id="generate-btn">Generate Question</button>
 <button id="fill-questions-btn">Fill Question Bank</button>
 
-<script>
-    document.getElementById('generate-btn').addEventListener('click', function() {
-        // Before doing anything, clear any existing highlights/styles from the previous question
-        const options = document.querySelectorAll('.option');
-        options.forEach(option => {
-            option.classList.remove('correct', 'incorrect');
-        });
-
-        const selectedTeam = document.getElementById('team-select').value;
-
-        fetch('/generate_question', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ team: selectedTeam })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Update question and options based on the received data
-            document.getElementById('question').textContent = data.question;
-            document.getElementById('option1').textContent = data.options[0];
-            document.getElementById('option2').textContent = data.options[1];
-            document.getElementById('option3').textContent = data.options[2];
-            document.getElementById('option4').textContent = data.options[3];
-
-            // Define the event handling function
-            const optionClicked = function(event) {
-                // Remove existing click event listeners and styles
-                options.forEach((option, index) => {
-                    option.removeEventListener('click', optionClicked);
-                    // The removal of 'correct' and 'incorrect' classes is already handled at the start
-                });
-
-                // Identify the clicked element
-                const selectedOption = event.target;
-                const correctOptionIndex = data.options.indexOf(data.correct_option);
-                const selectedOptionIndex = Array.from(options).indexOf(selectedOption);
-
-                // Style the selected and correct options
-                if (selectedOptionIndex === correctOptionIndex) {
-                    selectedOption.classList.add('correct');
-                } else {
-                    selectedOption.classList.add('incorrect');
-                    options[correctOptionIndex].classList.add('correct');
-                }
-            };
-
-            // Add the click event listener to all options
-            options.forEach(option => {
-                option.addEventListener('click', optionClicked);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching question:', error);
-        });
-    });
-
-    document.getElementById('fill-questions-btn').addEventListener('click', function() {
-        // Disable the button to prevent multiple clicks/submissions
-        this.disabled = true;
-
-        // Create and show the toast right away
-        let toast = document.createElement("div");
-        toast.classList.add("toast");
-        toast.textContent = "Filling question bank. Please wait...";
-        document.body.appendChild(toast);
-
-        // Make the toast disappear after a while (optional, you might want to remove this if the request takes longer)
-        setTimeout(function() {
-            toast.classList.add("vanish");
-            document.body.removeChild(toast);
-        }, 3000);
-
-        // Call the Flask route responsible for filling the question bank
-        fetch('/fill_question_bank', {
-            method: 'POST', // or 'GET' if your route is designed that way
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            // Add any necessary data the route might require
-            body: JSON.stringify({ /* data fields here if needed */ })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            // If you want, you can show another toast here indicating success
-            // Process the response if needed, you might not need the next line if no processing is required
-            return response.json(); // or .text() if the server returns text
-        })
-        .then(data => {
-            // Here, you might want to show a confirmation that the task was successful, depending on your needs
-        })
-        .catch(error => {
-            console.error('Request failed:', error);
-            // Optionally show another toast for the error state here
-        })
-        .finally(() => {
-            // Re-enable the button whether the request succeeded or failed
-            document.getElementById('fill-questions-btn').disabled = false;
-        });
-    });
-
-</script>
-</body>
-</html>
+{% endblock %}
