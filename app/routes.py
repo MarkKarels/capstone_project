@@ -2,10 +2,11 @@ from flask import render_template, jsonify, request
 from sqlalchemy import func
 import requests
 import random
+import sys
 
 from app import app, scheduler, chatGPT, fetchdata
 from datetime import date
-from app.model import Roster, Game, Question
+from app.model import *
 
 
 # @app.route("/")
@@ -14,24 +15,63 @@ from app.model import Roster, Game, Question
 #     return render_template("index.html")
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("index.html")
 
 
-@app.route("/game")
+@app.route("/game", methods=["GET", "POST"])
 def game():
     return render_template("game.html")
 
 
-@app.route("/leaderboard")
+@app.route("/leaderboard", methods=["GET", "POST"])
 def leaderboard():
     return render_template("leaderboard.html")
 
 
-@app.route("/end")
+@app.route("/end", methods=["GET", "POST"])
 def end():
     return render_template("end.html")
+
+
+@app.route("/saveHighScore", methods=["POST"])
+def save_high_score():
+    try:
+        data = request.get_json()
+        print(f"Received data: {data}")  # Print the received data
+
+        name = data.get("name")
+        score = data.get("score")
+
+        if not name or not score:
+            print("Missing name or score")
+            return jsonify({"error": "Missing name or score"}), 400
+
+        new_score = Score(name=name, score=score)
+        db.session.add(new_score)
+        db.session.commit()
+
+        print(f"Saved {name} - {score} to the database.")  # Confirm saving
+        return jsonify({"message": "Score saved successfully"}), 200
+
+    except Exception as e:
+        print(f"An error occurred: {e}")  # Print the exception
+        db.session.rollback()  # Rollback in case of an error
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/getHighScores", methods=["GET"])
+def get_high_scores():
+    try:
+        scores = Score.query.order_by(Score.score.desc()).limit(10).all()
+        print(f"Fetched scores: {scores}")  # Print the fetched scores
+
+        high_scores = [{"name": score.name, "score": score.score} for score in scores]
+        return jsonify({"high_scores": high_scores}), 200
+    except Exception as e:
+        print(f"An error occurred: {e}")  # Print the exception
+        return jsonify({"error": "An error occurred while fetching scores"}), 500
 
 
 @app.route("/generate_question", methods=["POST"])

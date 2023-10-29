@@ -3,18 +3,14 @@
 	<div id="end" class="flex-column flex-center">
 		<h1>Quiz Complete</h1>
 		<h2 id="finalScore">Your final score is <span>0</span> points!</h2>
-		<form
-			class="end-form-container"
-			action="{{ url_for('leaderboard') }}"
-			method="POST">
+		<form class="end-form-container" method="POST">
 			<input type="text" name="name" id="username" placeholder="Enter your name" />
 			<button class="btn" id="saveScoreBtn" type="submit">Submit</button>
 		</form>
-		<a href="{{ url_for('leaderboard') }}" id="leaderboard-btn" class="btn"
-			>Leaderboard<i class="fas fa-crown"></i
-		></a>
 		<a href="{{ url_for('game') }}" class="btn">Play Again</a>
 		<a href="{{ url_for('index') }}" class="btn">Home</a>
 	</div>
 </div>
-{% endblock %}
+{% block additional_scripts %}
+<script src="../static/scripts/end.js" defer></script>
+{% endblock %} {% endblock %}

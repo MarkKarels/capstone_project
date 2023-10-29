@@ -7,6 +7,15 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
+class Score(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(64), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+    date = db.Column(
+        db.String, default=lambda: datetime.now().strftime("%m-%d-%Y"), nullable=False
+    )
+
+
 class Question(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     counter = db.Column(db.Integer, nullable=False)

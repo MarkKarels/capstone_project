@@ -1,0 +1,14 @@
+{% extends 'layout.html' %} {% block additional_styles %}
+<link rel="stylesheet" href="../static/styles/leaderboard.css" />
+{% endblock %} {% block content %}
+<div class="container">
+	<h1 id="finalScore">Leaderboard</h1>
+	<div id="highScores" class="flex-column flex-center">
+		<ul id="highScoresList"></ul>
+		<a href="{{ url_for('index') }}" class="btn">Home</a>
+	</div>
+</div>
+
+{% block additional_scripts %}
+<script src="../static/scripts/leaderboard.js" defer></script>
+{% endblock %} {% endblock %}
