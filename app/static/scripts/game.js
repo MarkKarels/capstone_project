@@ -3,57 +3,26 @@ const choices = Array.from(document.querySelectorAll(".choice-text"));
 const progressText = document.querySelector("#progressText");
 const scoreText = document.querySelector("#score");
 const progressBarFull = document.querySelector("#progressBarFull");
+const timeLeftText = document.querySelector("#timeLeft");
 
 let currentQuestion = {};
 let acceptingAnswers = true;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
+let timeLeft = 20;
+let timerInterval;
 
-let questions = [
-	{
-		question: "What is 2 + 2?",
-		choice1: "2",
-		choice2: "4",
-		choice3: "21",
-		choice4: "17",
-		answer: 2,
-	},
-	{
-		question: "The answer is 3.",
-		choice1: "1",
-		choice2: "2",
-		choice3: "3",
-		choice4: "4",
-		answer: 3,
-	},
-	{
-		question: "The answer is 4.",
-		choice1: "1",
-		choice2: "2",
-		choice3: "3",
-		choice4: "4",
-		answer: 4,
-	},
-	{
-		question: "The answer is 1.",
-		choice1: "1",
-		choice2: "2",
-		choice3: "3",
-		choice4: "4",
-		answer: 1,
-	},
-	{
-		question: "The answer is 2.",
-		choice1: "1",
-		choice2: "2",
-		choice3: "3",
-		choice4: "4",
-		answer: 2,
-	},
-];
+let questions = [];
 
-const SCORE_POINTS = 100;
+fetch("/api/questions")
+	.then((response) => response.json())
+	.then((data) => {
+		questions = data;
+		startGame();
+	})
+	.catch((error) => console.error("Error fetching questions:", error));
+
 const MAX_QUESTIONS = 5;
 
 startGame = () => {
@@ -65,10 +34,14 @@ startGame = () => {
 
 getNewQuestion = () => {
 	if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
-		localStorage.setItem("mostRecentScore", score);
+		localStorage.setItem("mostRecentScore", score.toFixed(2));
 
 		return window.location.assign(endUrl);
 	}
+
+	clearInterval(timerInterval);
+	timeLeft = 20;
+	timeLeftText.innerText = timeLeft.toFixed(2);
 
 	questionCounter++;
 	progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`;
@@ -86,13 +59,42 @@ getNewQuestion = () => {
 	availableQuestions.splice(questionIndex, 1);
 
 	acceptingAnswers = true;
+	choices.forEach((choice) => {
+		choice.parentElement.classList.add("hidden");
+	});
+
+	setTimeout(() => {
+		choices.forEach((choice) => {
+			choice.parentElement.classList.remove("hidden");
+		});
+		startTimer();
+	}, 5000);
 };
+
+function startTimer() {
+	timeLeft = 20;
+	timeLeftText.innerText = timeLeft.toFixed(2);
+
+	timerInterval = setInterval(() => {
+		timeLeft -= 0.01;
+		timeLeftText.innerText = timeLeft.toFixed(2);
+
+		if (timeLeft <= 0) {
+			clearInterval(timerInterval);
+			timeLeftText.innerText = "0.00";
+			incrementScore(0);
+			getNewQuestion();
+		}
+	}, 10);
+}
 
 choices.forEach((choice) => {
 	choice.addEventListener("click", (e) => {
 		if (!acceptingAnswers) return;
 
 		acceptingAnswers = false;
+		clearInterval(timerInterval);
+
 		const selectedChoice = e.target;
 		const selectedAnswer = selectedChoice.dataset["number"];
 
@@ -100,7 +102,7 @@ choices.forEach((choice) => {
 			selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
 
 		if (classToApply === "correct") {
-			incrementScore(SCORE_POINTS);
+			incrementScore(timeLeft * 5);
 		}
 
 		selectedChoice.parentElement.classList.add(classToApply);
@@ -108,13 +110,11 @@ choices.forEach((choice) => {
 		setTimeout(() => {
 			selectedChoice.parentElement.classList.remove(classToApply);
 			getNewQuestion();
-		}, 1000);
+		}, 3000);
 	});
 });
 
 incrementScore = (num) => {
 	score += num;
-	scoreText.innerText = score;
+	scoreText.innerText = score.toFixed(2);
 };
-
-startGame();

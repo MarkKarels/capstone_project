@@ -10,7 +10,7 @@ def generate_uuid():
 class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(64), nullable=False)
-    score = db.Column(db.Integer, nullable=False)
+    score = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     date = db.Column(
         db.String, default=lambda: datetime.now().strftime("%m-%d-%Y"), nullable=False
     )

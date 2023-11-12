@@ -17,7 +17,7 @@ function saveHighScore(e) {
 	e.preventDefault();
 
 	const score = {
-		score: mostRecentScore,
+		score: parseFloat(mostRecentScore).toFixed(2),
 		name: username.value,
 	};
 

@@ -1,18 +1,9 @@
 from flask import render_template, jsonify, request
-from sqlalchemy import func
-import requests
-import random
-import sys
-
-from app import app, scheduler, chatGPT, fetchdata
-from datetime import date
+from app import app, db, scheduler, chatGPT, fetchdata
 from app.model import *
-
-
-# @app.route("/")
-# def quiz():
-#     fetchdata.fetch_all_game_data_for_season()
-#     return render_template("index.html")
+from datetime import date
+import random
+from sqlalchemy import func
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -74,73 +65,58 @@ def get_high_scores():
         return jsonify({"error": "An error occurred while fetching scores"}), 500
 
 
-@app.route("/generate_question", methods=["POST"])
-def generate_question_route():
-    data = request.get_json()
-    selected_team = data.get("team", "Chicago Bears")
-    team_alias = fetchdata.get_team_alias(selected_team)
+@app.route("/api/questions", methods=["GET", "POST"])
+def get_questions():
+    questions = Question.query.order_by(func.random()).limit(5).all()
+    response = []
 
-    question_count = Question.query.filter_by(team=selected_team).count()
-    print(question_count)
-    roster_exists = Roster.query.filter_by(team=team_alias).first()
-    if not roster_exists:
-        fetchdata.fetch_roster_data(team_alias)
+    for q in questions:
+        options = [q.option1, q.option2, q.option3, q.option4]
+        try:
+            answer_index = options.index(q.answer) + 1
+        except ValueError:
+            answer_index = None
 
-    today = str(date.today())
-    for key, value in season2023.items():
-        if today >= key:
-            try:
-                fetchdata.fetch_game_data(value, team_alias)
-            except requests.exceptions.HTTPError as err:
-                if err.response.status_code == 403:
-                    print(
-                        f"HTTP 403 error encountered for week {value} and team {team_alias}. Exiting loop."
-                    )
-                    break
-                else:
-                    print(
-                        f"HTTP error occurred for week {value} and team {team_alias}: {err}"
-                    )
-
-    if question_count > 5:
-        existing_question = (
-            Question.query.filter_by(team=selected_team).order_by(func.random()).first()
+        response.append(
+            {
+                "question": q.question,
+                "choice1": q.option1,
+                "choice2": q.option2,
+                "choice3": q.option3,
+                "choice4": q.option4,
+                "answer": answer_index,
+            }
         )
-        question = existing_question.question
-        options = [
-            existing_question.option1,
-            existing_question.option2,
-            existing_question.option3,
-            existing_question.option4,
-        ]
-        correct_option = existing_question.answer
-
-    else:
-        for i in range(5):
-            chatGPT.create_question_from_chatgpt("history", None, None, selected_team)
-        existing_question = (
-            Question.query.filter_by(team=selected_team).order_by(func.random()).first()
-        )
-        question = existing_question.question
-        options = [
-            existing_question.option1,
-            existing_question.option2,
-            existing_question.option3,
-            existing_question.option4,
-        ]
-        correct_option = existing_question.answer
-
-    return jsonify(
-        {"question": question, "options": options, "correct_option": correct_option}
-    )
+    print(response)
+    return jsonify(response)
 
 
-@app.route("/fill_question_bank", methods=["POST"])
+@app.route("/getQuestion", methods=["GET", "POST"])
 def fill_question_bank():
     try:
-        for i in range(500):
+        for i in range(32):
+            question_type = random.choice(["history", "pbp_current"])
             selected_team = random.choice(teams)
-            chatGPT.create_question_from_chatgpt("history", None, None, selected_team)
+            team_alias = fetchdata.get_team_alias(selected_team)
+            print(team_alias)
+            roster_exists = Roster.query.filter_by(team=team_alias).first()
+            if not roster_exists:
+                fetchdata.fetch_roster_data(team_alias)
+            week_number = None
+            for game_date in sorted(season2023.keys(), reverse=True):
+                if date.fromisoformat(game_date) <= date.today():
+                    week_number = season2023[game_date]
+                    break
+            fetchdata.fetch_game_data(week_number, team_alias)
+
+            if question_type == "pbp_current":
+                current_week = week_number
+                game_id = fetchdata.get_game_id_from_schedule(team_alias, current_week)
+                chatGPT.create_question_from_chatgpt(
+                    question_type, game_id, selected_team
+                )
+            else:
+                chatGPT.create_question_from_chatgpt(question_type, None, selected_team)
         return jsonify({"message": "Question bank filled successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -148,13 +124,19 @@ def fill_question_bank():
 
 def start_scheduler():
     scheduler.add_job(
-        id="Fetch NFL Data Job",
-        func=fetchdata.fetch_game_data,
-        args=[4, "Chicago Bears"],
+        id="Fill Question Bank",
+        func=fill_question_bank,
         trigger="interval",
-        minutes=5,
+        seconds=60,
+        replace_existing=True,
     )
     return "Scheduler started", 200
+
+
+def initialize_app():
+    fetchdata.fetch_all_game_data_for_season()
+    fill_question_bank()
+    start_scheduler()
 
 
 season2023 = {
