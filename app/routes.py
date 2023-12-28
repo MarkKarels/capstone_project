@@ -11,6 +11,71 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/generateQuestions", methods=["GET", "POST"])
+def generateQuestions():
+    next_question = True
+    global game_id
+    global question_type
+
+    while next_question:
+        history_question_count = HistoryQuestion.query.count()
+        live_question_count = LiveQuestion.query.count()
+        if history_question_count >= 5 and live_question_count >= 5:
+            next_question = False
+            break
+
+        if history_question_count >= 5:
+            question_type = "pbp_current"
+        elif live_question_count >= 5:
+            question_type = "history"
+        else:
+            question_type = random.choice(["history", "pbp_current"])
+
+        selected_team = random.choice(teams)
+        team_alias = fetchdata.get_team_alias(selected_team)
+
+        if question_type == "pbp_current":
+            week_number = random.randint(1, 17)
+            game_id = fetchdata.get_game_id_from_schedule(team_alias, week_number)
+        else:
+            game_id = None
+
+        chatGPT.create_question_from_chatgpt(question_type, game_id, selected_team)
+
+    return render_template("generate.html")
+
+
+@app.route("/generatePlayByPlay", methods=["GET", "POST"])
+def generatePlayByPlay():
+    if Game.query.count() == 0:
+        fetchdata.fetch_all_game_data_for_season()
+        print("Schedule data fetched and saved to database.")
+
+    for team in teams:
+        team_alias = fetchdata.get_team_alias(team)
+        print(team_alias)
+        for week_number in range(1, 17):
+            game_id_result = (
+                Game.query.with_entities(Game.id)
+                .filter(
+                    (Game.week_num == week_number)
+                    & ((Game.home_team == team_alias) | (Game.away_team == team_alias))
+                )
+                .first()
+            )
+
+            if game_id_result:
+                game_id = game_id_result[0]
+                if not Play.query.filter_by(game_id=game_id).first():
+                    print(game_id)
+                    fetchdata.fetch_game_data(week_number, game_id, team_alias)
+                    print("Play-by-play data fetched and saved to database.")
+                else:
+                    print("Play-by-play data already exists in database.")
+
+    return render_template("generate.html")
+
+
 @app.route("/game", methods=["GET", "POST"])
 def game():
     return render_template("game.html")
@@ -67,7 +132,7 @@ def get_high_scores():
 
 @app.route("/api/questions", methods=["GET", "POST"])
 def get_questions():
-    questions = Question.query.order_by(func.random()).limit(5).all()
+    questions = HistoryQuestion.query.order_by(func.random()).limit(5).all()
     response = []
 
     for q in questions:
@@ -91,52 +156,8 @@ def get_questions():
     return jsonify(response)
 
 
-@app.route("/getQuestion", methods=["GET", "POST"])
-def fill_question_bank():
-    try:
-        for i in range(32):
-            question_type = random.choice(["history", "pbp_current"])
-            selected_team = random.choice(teams)
-            team_alias = fetchdata.get_team_alias(selected_team)
-            print(team_alias)
-            roster_exists = Roster.query.filter_by(team=team_alias).first()
-            if not roster_exists:
-                fetchdata.fetch_roster_data(team_alias)
-            week_number = None
-            for game_date in sorted(season2023.keys(), reverse=True):
-                if date.fromisoformat(game_date) <= date.today():
-                    week_number = season2023[game_date]
-                    break
-            fetchdata.fetch_game_data(week_number, team_alias)
-
-            if question_type == "pbp_current":
-                current_week = week_number
-                game_id = fetchdata.get_game_id_from_schedule(team_alias, current_week)
-                chatGPT.create_question_from_chatgpt(
-                    question_type, game_id, selected_team
-                )
-            else:
-                chatGPT.create_question_from_chatgpt(question_type, None, selected_team)
-        return jsonify({"message": "Question bank filled successfully"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-def start_scheduler():
-    scheduler.add_job(
-        id="Fill Question Bank",
-        func=fill_question_bank,
-        trigger="interval",
-        seconds=60,
-        replace_existing=True,
-    )
-    return "Scheduler started", 200
-
-
 def initialize_app():
     fetchdata.fetch_all_game_data_for_season()
-    fill_question_bank()
-    start_scheduler()
 
 
 season2023 = {
@@ -172,13 +193,13 @@ teams = [
     "Dallas Cowboys",
     "New York Giants",
     "Philadelphia Eagles",
-    "Washington Football Team",
+    "Washington Commanders",
     "Chicago Bears",
     "Green Bay Packers",
     "Detroit Lions",
     "Minnesota Vikings",
     "Kansas City Chiefs",
-    "Las Angeles Chargers",
+    "Los Angeles Chargers",
     "Las Vegas Raiders",
     "Denver Broncos",
     "Houston Texans",

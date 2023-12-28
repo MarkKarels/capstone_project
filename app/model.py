@@ -16,9 +16,8 @@ class Score(db.Model):
     )
 
 
-class Question(db.Model):
-    id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    counter = db.Column(db.Integer, nullable=False)
+class HistoryQuestion(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     question = db.Column(db.String(512), unique=True, nullable=False)
     option1 = db.Column(db.String, nullable=False)
     option2 = db.Column(db.String, nullable=False)
@@ -32,8 +31,7 @@ class Question(db.Model):
 
 
 class LiveQuestion(db.Model):
-    id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    counter = db.Column(db.Integer, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     question = db.Column(db.String(512), unique=True, nullable=False)
     option1 = db.Column(db.String, nullable=False)
     option2 = db.Column(db.String, nullable=False)
@@ -47,6 +45,17 @@ class LiveQuestion(db.Model):
 
 
 class Vague(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    question = db.Column(db.String(512), nullable=False)
+    answer = db.Column(db.String, nullable=False)
+    team = db.Column(db.String, nullable=False)
+    topic = db.Column(db.String, nullable=False)
+    date = db.Column(
+        db.String, default=lambda: datetime.now().strftime("%m-%d-%Y"), nullable=False
+    )
+
+
+class Duplicate(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     question = db.Column(db.String(512), nullable=False)
     answer = db.Column(db.String, nullable=False)

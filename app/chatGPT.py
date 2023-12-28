@@ -1,7 +1,6 @@
 import random
 import torch
 import openai
-import time
 
 from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
@@ -15,10 +14,10 @@ openai.api_key = app.config["OPENAI_API_KEY"]
 MODEL_ID = "gpt-4"
 MAX_CALL = 100
 call_count = 0
-topic = ""
+global topic
 
 
-def is_question_definitive(question, team, answer):
+def is_question_definitive(question):
     response = chatgpt_conversation(
         "Yes or No? Does the following question have a single, definitive answer? "
         + question
@@ -28,12 +27,7 @@ def is_question_definitive(question, team, answer):
         print(question + ": This Question Is Unique")
         return True
     else:
-        existing_vague_question = Vague.query.filter_by(question=question).first()
-        if not existing_vague_question:
-            row = Vague(question=question, answer=answer, team=team, topic=topic)
-            db.session.add(row)
-            db.session.commit()
-            print(question + ": Question added to the vague table")
+        print(question + ": This Question Is NOT Unique")
         return False
 
 
@@ -66,7 +60,7 @@ def ask_again(question):
     return question, options, correct_option
 
 
-def is_answer_correct(question, answer, team):
+def is_answer_correct(question, answer):
     verify_response = chatgpt_conversation(
         "Yes or No? Is the answer to " + question + "Answer: " + answer
     )
@@ -74,55 +68,78 @@ def is_answer_correct(question, answer, team):
         print(question + ": This Answer Has Been Verified")
         return True
     else:
-        existing_accuracy_question = Accuracy.query.filter_by(question=question).first()
-        if not existing_accuracy_question:
-            row = Accuracy(question=question, answer=answer, team=team, topic=topic)
-            db.session.add(row)
-            db.session.commit()
-            print("Question added to the accuracy table")
+        print(question + ": This Answer Has NOT Been Verified")
         return False
 
 
-def chatgpt_prompt(question_type, summary, team):
-    global topic
-
+def chatgpt_prompt_num_1(question_type, summary, team):
     if question_type == "history":
-        difficulty, chosen_sub_topic = generate_history_question_topic()
-        topic = chosen_sub_topic
-        print(chosen_sub_topic)
-        # See if the prompt can change to only ask definitive questions
         prompt = chatgpt_conversation(
-            f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
-            f"{chosen_sub_topic}. Ensure that the question is below 255 characters and each answer is no more than "
+            f"Give me a unique multiple choice quiz question about the {team}'s. "
+            f"Ensure that the question is below 255 characters and each answer is no more than "
             f"7 words. The format of the response should be question \n option1 \n option2 \n option3 \n option4 \n "
-            f"answer. do not provide anything else in the response to distinguish what each line represents, only the "
+            f"answer. Do not provide anything else in the response to distinguish what each line represents, only the "
             f"requested information. You must provide a question, 4 options, and an answer."
         )
         print(prompt)
         return prompt
     if question_type == "pbp_current":
         prompt = chatgpt_conversation(
-            f'Based on the following plays from this game: "{summary}", generate a unique multiple '
-            f"choice quiz question from big plays. Ensure that the question is below 255 characters and each answer is "
-            f"no more than 7 words. Provide four options and the correct answer. Please provide as much detail as "
-            f"possible including but not limited to which teams were playing, which team made the play, what type of "
-            f"play it was, the quarter the play occured, time left in quarter, who made the play, "
-            f"and if it resulted in a touchdown or firstdown. If known, give full player names as options."
+            f'Give me a unique multiple choice quiz question about the following game summary: "{summary}", '
+            f"Ensure that the question is below 255 characters and each answer is no more than 7 words. "
+            f"Provide four options and the correct answer. "
             f"The format of the response should be question \n option1 \n option2 \n option3 \n option4 \n "
-            f"answer. do not provide anything else in the response to distinguish what each line represents, only the "
+            f"answer. Do not provide anything else in the response to distinguish what each line represents, only the "
             f"requested information. You must provide a question, 4 options, and an answer."
         )
+        print(prompt)
         return prompt
     return None
+
+
+# def chatgpt_prompt(question_type, summary, team):
+#     global topic
+
+#     if question_type == "history":
+#         difficulty, chosen_sub_topic = generate_history_question_topic()
+#         topic = chosen_sub_topic
+#         print(chosen_sub_topic)
+#         # See if the prompt can change to only ask definitive questions
+#         prompt = chatgpt_conversation(
+#             f"Give me a unique {difficulty} level difficulty multiple choice quiz question about the {team}'s "
+#             f"{chosen_sub_topic}. Ensure that the question is below 255 characters and each answer is no more than "
+#             f"7 words. The format of the response should be question \n option1 \n option2 \n option3 \n option4 \n "
+#             f"answer. do not provide anything else in the response to distinguish what each line represents, only the "
+#             f"requested information. You must provide a question, 4 options, and an answer."
+#         )
+#         print(prompt)
+#         return prompt
+#     if question_type == "pbp_current":
+#         prompt = chatgpt_conversation(
+#             f'Based on the following plays from this game: "{summary}", generate a unique multiple '
+#             f"choice quiz question from big plays. Ensure that the question is below 255 characters and each answer is "
+#             f"no more than 7 words. Provide four options and the correct answer. Please provide as much detail as "
+#             f"possible including but not limited to which teams were playing, which team made the play, what type of "
+#             f"play it was, the quarter the play occured, time left in quarter, who made the play, "
+#             f"and if it resulted in a touchdown or firstdown. If known, give full player names as options."
+#             f"The format of the response should be question \n option1 \n option2 \n option3 \n option4 \n "
+#             f"answer. do not provide anything else in the response to distinguish what each line represents, only the "
+#             f"requested information. You must provide a question, 4 options, and an answer."
+#         )
+#         return prompt
+#     return None
 
 
 def create_question_from_chatgpt(question_type, game_id, team):
     global call_count
     global MAX_CALL
     global nfl_fact
+    global topic
 
     if game_id is not None:
+        topic = "Live Game Play-by-Play"
         game = Game.query.filter_by(id=game_id).first()
+
         if not game:
             return "Game not found.", 404
 
@@ -134,13 +151,15 @@ def create_question_from_chatgpt(question_type, game_id, team):
         summary = ". ".join(
             [f"{play.timestamp} - {play.description}" for play in plays]
         )
-        nfl_fact = chatgpt_prompt(question_type, summary, team)
+        nfl_fact = chatgpt_prompt_num_1(question_type, summary, team)
     else:
-        nfl_fact = chatgpt_prompt(question_type, None, team)
+        topic = "Team History"
+        nfl_fact = chatgpt_prompt_num_1(question_type, None, team)
 
     for _ in range(MAX_CALL):
         if call_count >= MAX_CALL:
             print("Reached Max Call Count: Cannot Generate New Question")
+            break
 
         call_count += 1
         question_details = nfl_fact.split("\n")
@@ -151,53 +170,72 @@ def create_question_from_chatgpt(question_type, game_id, team):
             break
 
         try:
-            count = 0
             question = question_details[0].strip()
             options = [option.strip() for option in question_details[1:5]]
             correct_option = question_details[5].strip()
-            if game_id is None:
-                definitive = is_question_definitive(question, team, correct_option)
-                if not definitive:
-                    reworded = can_question_be_reworded(question)
-                    if not reworded:
-                        print("Question Cannot Be Reworded Escape")
-                        break
-                    while reworded and count < 5:
-                        question, options, correct_option = ask_again(question)
-                        count += 1
-                        definitive = is_question_definitive(
-                            question, team, correct_option
-                        )
-
-                if count >= 5:
-                    print("Not Definitive Escape")
-                    break
-
-                correct = is_answer_correct(question, correct_option, team)
-
-                if None in options:
-                    print("None Escape")
-                    break
-
-                existing_questions_for_team = (
-                    Question.query.filter_by(team=team)
-                    .with_entities(Question.question, Question.answer)
-                    .all()
-                )
-
             is_similar = False
 
-            for q_text, q_answer in existing_questions_for_team:
-                if bert_similarity(question, q_text) > 0.90:
-                    if correct_option == q_answer:
-                        is_similar = True
-                    else:
-                        continue
+            # First Check If Similar Question Exists
+            existing_questions_for_team = (
+                HistoryQuestion.query.filter_by(team=team)
+                .with_entities(HistoryQuestion.question, HistoryQuestion.answer)
+                .all()
+            )
+            if existing_questions_for_team is not None:
+                for q_text, q_answer in existing_questions_for_team:
+                    if bert_similarity(question, q_text) > 0.90:
+                        if correct_option == q_answer:
+                            is_similar = True
+                            break
 
-            if not is_similar and definitive and correct:
-                row = Question(
+                if is_similar:
+                    row = Duplicate(
+                        question=question,
+                        answer=correct_option,
+                        team=team,
+                        topic=topic,
+                    )
+                    db.session.add(row)
+                    db.session.commit()
+                    print("Question added to the duplicate table")
+                    call_count = 0
+                    break
+
+            # Check If Question is definitive
+            definitive = is_question_definitive(question)
+
+            if definitive:
+                row = Vague(
                     question=question,
-                    counter=get_next_question_id_for_game(),
+                    answer=correct_option,
+                    team=team,
+                    topic=topic,
+                )
+                db.session.add(row)
+                db.session.commit()
+                print("Question added to the vague table")
+                call_count = 0
+                break
+
+            # Check if Question is correct via chatGPT
+            correct = is_answer_correct(question, correct_option)
+
+            if correct:
+                row = Accuracy(
+                    question=question,
+                    answer=correct_option,
+                    team=team,
+                    topic=topic,
+                )
+                db.session.add(row)
+                db.session.commit()
+                print("Question added to the accuracy table")
+                call_count = 0
+                break
+
+            if topic == "Team History":
+                row = HistoryQuestion(
+                    question=question,
                     option1=options[0],
                     option2=options[1],
                     option3=options[2],
@@ -209,7 +247,20 @@ def create_question_from_chatgpt(question_type, game_id, team):
                 db.session.commit()
                 call_count = 0
                 break
-            else:
+
+            if topic == "Live Game Play-by-Play":
+                row = LiveQuestion(
+                    question=question,
+                    option1=options[0],
+                    option2=options[1],
+                    option3=options[2],
+                    option4=options[3],
+                    answer=correct_option,
+                    team=team,
+                )
+                db.session.add(row)
+                db.session.commit()
+                call_count = 0
                 break
 
         except Exception as e:
@@ -270,11 +321,3 @@ def bert_similarity(sent1, sent2):
     emb1 = get_bert_embedding(sent1)
     emb2 = get_bert_embedding(sent2)
     return cosine_similarity([emb1], [emb2])[0][0]
-
-
-def get_next_question_id_for_game():
-    last_question = Question.query.order_by(Question.counter.desc()).first()
-    if last_question:
-        return last_question.counter + 1
-    else:
-        return 1

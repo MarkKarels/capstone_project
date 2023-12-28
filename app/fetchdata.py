@@ -146,21 +146,10 @@ def fetch_all_game_data_for_season():
     db.session.commit()
 
 
-def fetch_game_data(week_number, team_alias):
-    game_id_tuple = (
-        db.session.query(Game.id)
-        .filter(
-            or_(Game.home_team == team_alias, Game.away_team == team_alias),
-            Game.week_num == week_number,
-        )
-        .first()
-    )
-    game_id = game_id_tuple[0] if game_id_tuple else None
-    print(game_id)
-
+def fetch_game_data(week_number, game_id, team_alias):
     play_by_play_url = f"http://api.sportradar.us/nfl/official/trial/v7/en/games/{game_id}/pbp.json?api_key={app.config['SPORTSRADAR_API_KEY']}"
 
-    retries = 10
+    retries = 3
     delay = 1
     for i in range(retries):
         try:
@@ -276,5 +265,5 @@ team_mapping = {
     "SEA": "Seattle Seahawks",
     "TB": "Tampa Bay Buccaneers",
     "TEN": "Tennessee Titans",
-    "WAS": ["Washington Commanders", "Washington Football Team"],
+    "WAS": "Washington Commanders",
 }
