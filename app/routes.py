@@ -1,4 +1,6 @@
+import time
 from flask import render_template, jsonify, request
+import openai
 from app import app, db, scheduler, chatGPT, fetchdata
 from app.model import *
 from datetime import date
@@ -19,17 +21,22 @@ def generateQuestions():
 
     while next_question:
         history_question_count = HistoryQuestion.query.count()
+        print("History question count: " + str(history_question_count))
         live_question_count = LiveQuestion.query.count()
+        print("Live question count: " + str(live_question_count))
         if history_question_count >= 5 and live_question_count >= 5:
             next_question = False
             break
 
         if history_question_count >= 5:
             question_type = "pbp_current"
+            print("Only live questions left.")
         elif live_question_count >= 5:
             question_type = "history"
+            print("Only history questions left.")
         else:
             question_type = random.choice(["history", "pbp_current"])
+            print("Both types of questions left." + question_type + " selected.")
 
         selected_team = random.choice(teams)
         team_alias = fetchdata.get_team_alias(selected_team)
@@ -37,10 +44,23 @@ def generateQuestions():
         if question_type == "pbp_current":
             week_number = random.randint(1, 17)
             game_id = fetchdata.get_game_id_from_schedule(team_alias, week_number)
+            print("Game ID: " + str(game_id))
+            if not game_id:
+                print(
+                    "No game found for "
+                    + selected_team
+                    + " in week "
+                    + str(week_number)
+                )
+                continue
         else:
             game_id = None
 
-        chatGPT.create_question_from_chatgpt(question_type, game_id, selected_team)
+        try:
+            chatGPT.create_question_from_chatgpt(question_type, game_id, selected_team)
+        except openai.error.RateLimitError as e:
+            print(f"Rate limit reached. Pausing for 60 seconds. Error: {e}")
+            time.sleep(60)
 
     return render_template("generate.html")
 

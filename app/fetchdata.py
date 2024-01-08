@@ -212,13 +212,17 @@ def get_next_play_id_for_game(game_id):
 
 def get_game_id_from_schedule(team_alias, week_number):
     schedule_path = "app/schedule_data/2023_NFL_SCHEDULE"
+    print(f"Searching for game ID for team {team_alias} in week {week_number}")
 
     with open(schedule_path, "r") as file:
         schedule_data = json.load(file)
 
+        # Convert week_number to string for comparison
+        week_number_str = str(week_number)
+
         # Searching for the matching game based on team_alias and week_number
         for game in schedule_data:
-            if game["Week Number"] == week_number and (
+            if game["Week Number"] == week_number_str and (
                 game["Home Team"] == team_alias or game["Away Team"] == team_alias
             ):
                 return game["Game ID"]
