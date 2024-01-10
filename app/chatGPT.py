@@ -19,17 +19,28 @@ global topic
 
 
 def is_question_definitive(question):
-    response = chatgpt_conversation(
-        "Yes or No? Does the following question have a single, definitive answer? "
-        + question
-    )
+    retry_count = 0
+    max_retries = 5
 
-    if response == "Yes" or response == "yes":
-        print(question + ": This Question Is Unique")
-        return True
-    else:
-        print(question + ": This Question Is NOT Unique")
-        return False
+    while retry_count < max_retries:
+        try:
+            response = chatgpt_conversation(
+                "Yes or No? Does the following question have a single, definitive answer? "
+                + question
+            )
+
+            if response == "Yes" or response == "yes":
+                print(question + ": This Question Is Unique")
+                return True
+            else:
+                print(question + ": This Question Is NOT Unique")
+                return False
+        except openai.error.RateLimitError as e:
+            print(
+                f"Rate limit reached in is_question_definitive. Pausing for 30 seconds. Error: {e}"
+            )
+            time.sleep(30)
+            retry_count += 1
 
 
 def can_question_be_reworded(question):
@@ -61,42 +72,75 @@ def ask_again(question):
     return question, options, correct_option
 
 
-def is_answer_correct(question, answer):
-    verify_response = chatgpt_conversation(
-        "Yes or No? Is the answer to " + question + "Answer: " + answer
-    )
-    if verify_response == "Yes" or verify_response == "yes":
-        print(question + ": This Answer Has Been Verified")
-        return True
-    else:
-        print(question + ": This Answer Has NOT Been Verified")
-        return False
+def is_answer_correct(question, answer, topic, summary):
+    global verify_response
+    retry_count = 0
+    max_retries = 5
+
+    while retry_count < max_retries:
+        try:
+            if topic == "Team History":
+                verify_response = chatgpt_conversation(
+                    "Yes or No? Is the answer to " + question + "Answer: " + answer
+                )
+            else:
+                verify_response = chatgpt_conversation(
+                    "Yes or No? Is the answer to "
+                    + question
+                    + "Answer: "
+                    + answer
+                    + "Based on the following information: "
+                    + summary
+                )
+            if verify_response == "Yes" or verify_response == "yes":
+                print(question + ": This Answer Has Been Verified")
+                return True
+            else:
+                print(question + ": This Answer Has NOT Been Verified")
+                return False
+        except openai.error.RateLimitError as e:
+            print(
+                f"Rate limit reached in is_answer_correct. Pausing for 30 seconds. Error: {e}"
+            )
+            time.sleep(30)
+            retry_count += 1
 
 
 def chatgpt_prompt_num_1(question_type, summary, team):
-    if question_type == "history":
-        prompt = chatgpt_conversation(
-            f"Ensure all questions generate are below 255 characters and each answer is no more than "
-            f"7 words. The format of the response must be question \n option1 \n option2 \n option3 \n option4 \n "
-            f"answer. Do not provide anything else in the response to distinguish what each line represents, only the "
-            f"requested information. (i.e. don't put question: before asking the question or option1: before displaying the option) "
-            f"You must provide a question, 4 options, and an answer. "
-            f"Give me a unique multiple choice quiz question about the NFL team {team}'s."
-        )
-        print(prompt)
-        return prompt
-    if question_type == "pbp_current":
-        prompt = chatgpt_conversation(
-            f"Ensure all questions generate are below 255 characters and each answer is no more than "
-            f"7 words. The format of the response must be question \n option1 \n option2 \n option3 \n option4 \n "
-            f"answer. Do not provide anything else in the response to distinguish what each line represents, only the "
-            f"requested information. (i.e. don't put question: before asking the question or option1: before displaying the option) "
-            f"You must provide a question, 4 options, and an answer. "
-            f'Give me a unique multiple choice quiz question about the following NFL game summary: "{summary}", '
-        )
-        print(prompt)
-        return prompt
-    return None
+    retry_count = 0
+    max_retries = 5
+
+    while retry_count < max_retries:
+        try:
+            if question_type == "history":
+                prompt = chatgpt_conversation(
+                    f"Ensure all questions generate are below 255 characters and each answer is no more than "
+                    f"7 words. The format of the response must be question \n option1 \n option2 \n option3 \n option4 \n "
+                    f"answer. Do not provide anything else in the response to distinguish what each line represents, only the "
+                    f"requested information. (i.e. don't put question: before asking the question or option1: before displaying the option) "
+                    f"You must provide a question, 4 options, and an answer. "
+                    f"Give me a unique multiple choice quiz question about the NFL team {team}'s."
+                )
+                print(prompt)
+                return prompt
+            if question_type == "pbp_current":
+                prompt = chatgpt_conversation(
+                    f"Ensure all questions generate are below 255 characters and each answer is no more than "
+                    f"7 words. The format of the response must be question \n option1 \n option2 \n option3 \n option4 \n "
+                    f"answer. Do not provide anything else in the response to distinguish what each line represents, only the "
+                    f"requested information. (i.e. don't put question: before asking the question or option1: before displaying the option) "
+                    f"You must provide a question, 4 options, and an answer. "
+                    f'Give me a unique multiple choice quiz question about the following NFL game summary: "{summary}", '
+                )
+                print(prompt)
+                return prompt
+            return None
+        except openai.error.RateLimitError as e:
+            print(
+                f"Rate limit reached in chatgpt_prompt_num_1. Pausing for 30 seconds. Error: {e}"
+            )
+            time.sleep(30)
+            retry_count += 1
 
 
 # def chatgpt_prompt(question_type, summary, team):
@@ -137,12 +181,16 @@ def create_question_from_chatgpt(question_type, game_id, team):
     global MAX_CALL
     global nfl_fact
     global topic
+    global is_similar
 
     print("Question Type: " + question_type)
     print("Game ID: " + str(game_id))
     print("Team: " + team)
 
-    time.sleep(10)
+    time.sleep(5)
+
+    # Initialize summary with a default value
+    summary = ""
 
     if game_id is not None:
         topic = "Live Game Play-by-Play"
@@ -198,6 +246,7 @@ def create_question_from_chatgpt(question_type, game_id, team):
                 )
 
             if existing_questions_for_team is not None:
+                is_similar = False
                 for q_text, q_answer in existing_questions_for_team:
                     if bert_similarity(question, q_text) > 0.90:
                         if correct_option == q_answer:
@@ -215,27 +264,27 @@ def create_question_from_chatgpt(question_type, game_id, team):
                     db.session.commit()
                     print("Question added to the duplicate table")
                     call_count = 0
-                    break
 
-            if question_type == "history":
-                # Check if Question is definitive
-                definitive = is_question_definitive(question)
+            if not is_similar:
+                if question_type == "history":
+                    # Check if Question is definitive
+                    definitive = is_question_definitive(question)
 
-                if not definitive:
-                    row = Vague(
-                        question=question,
-                        answer=correct_option,
-                        team=team,
-                        topic=topic,
-                    )
-                    db.session.add(row)
-                    db.session.commit()
-                    print("Question added to the vague table")
-                    call_count = 0
-                    break
+                    if not definitive:
+                        row = Vague(
+                            question=question,
+                            answer=correct_option,
+                            team=team,
+                            topic=topic,
+                        )
+                        db.session.add(row)
+                        db.session.commit()
+                        print("Question added to the vague table")
+                        call_count = 0
+                        break
 
                 # Check if Question is correct via chatGPT
-                correct = is_answer_correct(question, correct_option)
+                correct = is_answer_correct(question, correct_option, topic, summary)
 
                 if not correct:
                     row = Accuracy(

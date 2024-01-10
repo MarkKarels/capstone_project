@@ -24,14 +24,24 @@ def generateQuestions():
         print("History question count: " + str(history_question_count))
         live_question_count = LiveQuestion.query.count()
         print("Live question count: " + str(live_question_count))
-        if history_question_count >= 5 and live_question_count >= 5:
+        duplicate_question_count_live = Duplicate.query.filter_by(
+            topic="Live Game Play-by-Play"
+        ).count()
+        print("Duplicate question count live: " + str(duplicate_question_count_live))
+        duplicate_question_count_history = Duplicate.query.filter_by(
+            topic="Team History"
+        ).count()
+        print(
+            "Duplicate question count history: " + str(duplicate_question_count_history)
+        )
+        if history_question_count >= 50 and live_question_count >= 50:
             next_question = False
             break
 
-        if history_question_count >= 5:
+        if history_question_count >= 50 or duplicate_question_count_live >= 30:
             question_type = "pbp_current"
             print("Only live questions left.")
-        elif live_question_count >= 5:
+        elif live_question_count >= 50 or duplicate_question_count_history >= 30:
             question_type = "history"
             print("Only history questions left.")
         else:
@@ -59,8 +69,8 @@ def generateQuestions():
         try:
             chatGPT.create_question_from_chatgpt(question_type, game_id, selected_team)
         except openai.error.RateLimitError as e:
-            print(f"Rate limit reached. Pausing for 60 seconds. Error: {e}")
-            time.sleep(60)
+            print(f"Rate limit reached. Pausing for 30 seconds. Error: {e}")
+            time.sleep(30)
 
     return render_template("generate.html")
 
