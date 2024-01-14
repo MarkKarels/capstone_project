@@ -64,10 +64,13 @@ def generateQuestions():
                 )
                 continue
         else:
+            week_number = None
             game_id = None
 
         try:
-            chatGPT.create_question_from_chatgpt(question_type, game_id, selected_team)
+            chatGPT.create_question_from_chatgpt(
+                question_type, game_id, selected_team, week_number
+            )
         except openai.error.RateLimitError as e:
             print(f"Rate limit reached. Pausing for 30 seconds. Error: {e}")
             time.sleep(30)
