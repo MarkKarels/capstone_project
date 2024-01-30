@@ -39,7 +39,7 @@ class LiveQuestion(db.Model):
     option4 = db.Column(db.String, nullable=False)
     answer = db.Column(db.String, nullable=False)
     team = db.Column(db.String, nullable=False)
-    week = db.Column(db.Integer, nullable=False)
+    game_id = db.Column(db.String, nullable=False)
     date = db.Column(
         db.String, default=lambda: datetime.now().strftime("%m-%d-%Y"), nullable=False
     )
