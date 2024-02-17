@@ -13,7 +13,57 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/generateHistoryQuestions", methods=["GET", "POST"])
+from flask import jsonify
+import random
+
+
+@app.route("/generateSetOfQuestions", methods=["GET", "POST"])
+def generateSetOfQuestions():
+    history_question_count = HistoryQuestion.query.count()
+    live_question_count = LiveQuestion.query.count()
+
+    while live_question_count < 100 or history_question_count < 200:
+        if live_question_count < 100 and history_question_count < 200:
+            random.choice([generateLiveQuestions, generateHistoryQuestions])()
+        elif live_question_count < 100:
+            generateLiveQuestions()
+        else:
+            generateHistoryQuestions()
+
+        history_question_count = HistoryQuestion.query.count()
+        live_question_count = LiveQuestion.query.count()
+
+    return jsonify({"message": "All Questions Have Been Generated"})
+
+
+def generateLiveQuestions():
+    question_type = "Live Game Play-by-Play"
+
+    history_question_count = HistoryQuestion.query.count()
+    print("History question count: " + str(history_question_count))
+    live_question_count = LiveQuestion.query.count()
+    print("Live question count: " + str(live_question_count))
+
+    selected_team = random.choice(teams)
+    team_alias = fetchdata.get_team_alias(selected_team)
+
+    week_number = random.randint(1, 17)
+    game_id = fetchdata.get_game_id_from_schedule(team_alias, week_number)
+
+    print("Game ID: " + str(game_id))
+    if not game_id:
+        print("No game found for " + selected_team + " in week " + str(week_number))
+        return jsonify(
+            {"error": f"No game found for {selected_team} in week {week_number}"}
+        )
+
+    try:
+        chatGPT.create_question_from_chatgpt(question_type, game_id, selected_team)
+    except openai.error.RateLimitError as e:
+        print(f"Rate limit reached. Pausing for 30 seconds. Error: {e}")
+        time.sleep(30)
+
+
 def generateHistoryQuestions():
     question_type = "History"
 
@@ -25,45 +75,10 @@ def generateHistoryQuestions():
     selected_team = random.choice(teams)
 
     try:
-        chatGPT.create_question_from_chatgpt(question_type, None, selected_team, None)
+        chatGPT.create_question_from_chatgpt(question_type, None, selected_team)
     except openai.error.RateLimitError as e:
         print(f"Rate limit reached. Pausing for 30 seconds. Error: {e}")
         time.sleep(30)
-
-    return render_template("generateHistory.html")
-
-
-@app.route("/generateLiveQuestions", methods=["GET", "POST"])
-def generateLiveQuestions():
-    question_type = "Live Game Play-by-Play"
-
-    history_question_count = HistoryQuestion.query.count()
-    print("History question count: " + str(history_question_count))
-    live_question_count = LiveQuestion.query.count()
-    print("Live question count: " + str(live_question_count))
-    print("")
-
-    selected_team = random.choice(teams)
-    team_alias = fetchdata.get_team_alias(selected_team)
-
-    week_number = random.randint(1, 17)
-    game_id = fetchdata.get_game_id_from_schedule(team_alias, week_number)
-    print("Game ID: " + str(game_id))
-    if not game_id:
-        print("No game found for " + selected_team + " in week " + str(week_number))
-        return render_template(
-            "No game found for " + selected_team + " in week " + str(week_number)
-        )
-
-    try:
-        chatGPT.create_question_from_chatgpt(
-            question_type, game_id, selected_team, week_number
-        )
-    except openai.error.RateLimitError as e:
-        print(f"Rate limit reached. Pausing for 30 seconds. Error: {e}")
-        time.sleep(30)
-
-    return render_template("generateLive.html")
 
 
 @app.route("/generatePlayByPlay", methods=["GET", "POST"])
